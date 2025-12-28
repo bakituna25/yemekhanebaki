@@ -387,12 +387,16 @@ export default function AGUDiningApp() {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('darkMode');
+      console.log('🚀 Initializing dark mode. localStorage value:', saved);
       // Eğer kullanıcı daha önce bir tercih yapmışsa onu kullan
       if (saved !== null) {
+        console.log('📦 Using saved preference:', saved);
         return saved === 'true';
       }
       // Yoksa sistem tercihini kontrol et
-      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      console.log('🖥️ No saved preference, using system preference:', systemPrefersDark ? 'dark' : 'light');
+      return systemPrefersDark;
     }
     return false;
   });
@@ -412,12 +416,15 @@ export default function AGUDiningApp() {
 
   // Dark mode sınıfını html etiketine ekle ve localStorage'a kaydet
   useEffect(() => {
+    console.log('🎨 Dark mode effect triggered. isDarkMode:', isDarkMode);
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
       localStorage.setItem('darkMode', 'true');
+      console.log('✅ Set to DARK mode, saved to localStorage');
     } else {
       document.documentElement.classList.remove('dark');
       localStorage.setItem('darkMode', 'false');
+      console.log('✅ Set to LIGHT mode, saved to localStorage');
     }
   }, [isDarkMode]);
 
@@ -428,7 +435,12 @@ export default function AGUDiningApp() {
 
   // Explicit handler functions for better production reliability
   const toggleDarkMode = () => {
-    setIsDarkMode(prev => !prev);
+    console.log('🌓 Toggle clicked! Current mode:', isDarkMode ? 'dark' : 'light');
+    setIsDarkMode(prev => {
+      const newValue = !prev;
+      console.log('🌓 Changing to:', newValue ? 'dark' : 'light');
+      return newValue;
+    });
   };
 
   const toggleLanguage = () => {
