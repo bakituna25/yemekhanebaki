@@ -382,21 +382,44 @@ const DailyMenuCard = ({ menu, isToday, compact = false, expanded = false, isEng
 export default function AGUDiningApp() {
   const [viewMode, setViewMode] = useState('weekly'); // 'daily', 'weekly', 'monthly'
   const [currentRefDate, setCurrentRefDate] = useState(new Date());
-  const [isDarkMode, setIsDarkMode] = useState(false); // Varsayılan: Light
-  const [isEnglish, setIsEnglish] = useState(false); // Varsayılan: Türkçe
+
+  // Dark mode state'ini localStorage'dan oku
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('darkMode');
+      return saved === 'true';
+    }
+    return false;
+  });
+
+  // Dil state'ini localStorage'dan oku
+  const [isEnglish, setIsEnglish] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('language');
+      return saved === 'en';
+    }
+    return false;
+  });
 
   useEffect(() => {
     setCurrentRefDate(new Date());
   }, []);
 
-  // Dark mode sınıfını html etiketine ekle (Gerçek sitelerde düzgün çalışması için)
+  // Dark mode sınıfını html etiketine ekle ve localStorage'a kaydet
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
+      localStorage.setItem('darkMode', 'true');
     } else {
       document.documentElement.classList.remove('dark');
+      localStorage.setItem('darkMode', 'false');
     }
   }, [isDarkMode]);
+
+  // Dil tercihini localStorage'a kaydet
+  useEffect(() => {
+    localStorage.setItem('language', isEnglish ? 'en' : 'tr');
+  }, [isEnglish]);
 
   const changeDate = (direction) => {
     const newDate = new Date(currentRefDate);
