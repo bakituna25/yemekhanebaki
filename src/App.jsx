@@ -383,11 +383,16 @@ export default function AGUDiningApp() {
   const [viewMode, setViewMode] = useState('weekly'); // 'daily', 'weekly', 'monthly'
   const [currentRefDate, setCurrentRefDate] = useState(new Date());
 
-  // Dark mode state'ini localStorage'dan oku
+  // Dark mode state'ini localStorage'dan oku, yoksa sistem tercihini kullan
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('darkMode');
-      return saved === 'true';
+      // Eğer kullanıcı daha önce bir tercih yapmışsa onu kullan
+      if (saved !== null) {
+        return saved === 'true';
+      }
+      // Yoksa sistem tercihini kontrol et
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
     return false;
   });
