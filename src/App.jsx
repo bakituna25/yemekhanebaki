@@ -421,6 +421,15 @@ export default function AGUDiningApp() {
     localStorage.setItem('language', isEnglish ? 'en' : 'tr');
   }, [isEnglish]);
 
+  // Explicit handler functions for better production reliability
+  const toggleDarkMode = () => {
+    setIsDarkMode(prev => !prev);
+  };
+
+  const toggleLanguage = () => {
+    setIsEnglish(prev => !prev);
+  };
+
   const changeDate = (direction) => {
     const newDate = new Date(currentRefDate);
 
@@ -514,7 +523,7 @@ export default function AGUDiningApp() {
           <div className="flex items-center space-x-2">
             {/* Dil Değiştirme Butonu */}
             <button
-              onClick={() => setIsEnglish(!isEnglish)}
+              onClick={toggleLanguage}
               className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors"
               title={isEnglish ? "Türkçe'ye Geç" : "Switch to English"}
             >
@@ -526,7 +535,7 @@ export default function AGUDiningApp() {
 
             {/* Tema Değiştirme Butonu */}
             <button
-              onClick={() => setIsDarkMode(!isDarkMode)}
+              onClick={toggleDarkMode}
               className="p-2 rounded-lg bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors"
               aria-label="Toggle Dark Mode"
             >
