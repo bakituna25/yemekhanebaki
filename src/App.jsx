@@ -6,221 +6,203 @@ import { Calendar, ChevronRight, ChevronLeft, Utensils, Info, MapPin, Clock, Moo
 
 // Çoklu Dil Desteği İçin Veri Yapısı
 const RAW_MENU_ITEMS = [
-  // 1. Hafta
+  // 1. Hafta - Ocak 2026
   {
-    date: '2025-12-01',
-    dayTr: 'Pazartesi', dayEn: 'Monday',
-    soup: { tr: 'Yayla Çorbası', en: 'Yogurt Soup', c: 115 },
-    main: { tr: 'Çıtır Tavuk', en: 'Crispy Chicken', c: 280 },
-    veg: { tr: 'Şakşuka', en: 'Shakshuka', c: 154 },
-    side: { tr: 'Meyhane Pilavı', en: 'Bulgur Pilaf with Vegetables', c: 290 },
-    extra: { tr: 'İçecek', en: 'Beverage', c: 150 }
-  },
-  {
-    date: '2025-12-02',
-    dayTr: 'Salı', dayEn: 'Tuesday',
-    soup: { tr: 'Mercimek Çorbası', en: 'Lentil Soup', c: 195 },
-    main: { tr: 'Mengen Musakka', en: 'Mengen Style Moussaka', c: 300 },
-    veg: { tr: 'Soslu Brokoli', en: 'Broccoli with Sauce', c: 162 },
-    side: { tr: 'Tereyağlı Erişte', en: 'Buttered Noodles', c: 230 },
-    extra: { tr: 'Haydari', en: 'Haydari', c: 70 }
-  },
-  {
-    date: '2025-12-03',
-    dayTr: 'Çarşamba', dayEn: 'Wednesday',
-    soup: { tr: 'Tarhana Çorbası', en: 'Tarhana Soup', c: 183 },
-    main: { tr: 'Etli Nohut Yahni', en: 'Chickpea Stew with Meat', c: 367 },
-    veg: { tr: 'Karnabahar Kızartma', en: 'Fried Cauliflower', c: 300 },
-    side: { tr: 'Şehriyeli Pirinç Pilavı', en: 'Rice Pilaf with Orzo', c: 390 },
-    extra: { tr: 'Soğuk Baklava', en: 'Cold Baklava', c: 115 }
-  },
-  {
-    date: '2025-12-04',
-    dayTr: 'Perşembe', dayEn: 'Thursday',
-    soup: { tr: 'Kremalı Sebze Çorbası', en: 'Creamy Vegetable Soup', c: 160 },
-    main: { tr: 'Fırın Köfte', en: 'Oven Meatballs', c: 450 },
-    veg: { tr: 'Barbunya Plaki', en: 'Kidney Bean Stew', c: 250 },
-    side: { tr: 'Soslu Makarna', en: 'Pasta with Sauce', c: 230 },
-    extra: { tr: 'Salat Bar', en: 'Salad Bar', c: 85 }
-  },
-  {
-    date: '2025-12-05',
+    date: '2026-01-02',
     dayTr: 'Cuma', dayEn: 'Friday',
-    soup: { tr: 'Düğün Çorba', en: 'Wedding Soup', c: 140 },
-    main: { tr: 'Piliç Topkapı', en: 'Stuffed Chicken', c: 425 },
-    veg: { tr: 'Zeytinyağlı Taze Fasulye', en: 'Green Beans in Olive Oil', c: 298 },
-    side: { tr: 'Mısırlı Pirinç Pilavı', en: 'Rice Pilaf with Corn', c: 390 },
-    extra: { tr: 'Meyve', en: 'Fruit', c: 70 }
+    soup: { tr: 'Köy Çorba', en: 'Village Soup', c: 130 },
+    main: { tr: 'Çiftlik Köfte', en: 'Farm Meatballs', c: 450 },
+    veg: { tr: 'Barbunya Plaki', en: 'Kidney Beans in Olive Oil', c: 330 },
+    side: { tr: 'Şehriyeli Pirinç Pilavı', en: 'Rice Pilaf with Orzo', c: 300 },
+    extra: { tr: 'Haydari', en: 'Haydari (Yogurt Dip)', c: 120 }
   },
 
   // 2. Hafta
   {
-    date: '2025-12-08',
+    date: '2026-01-05',
     dayTr: 'Pazartesi', dayEn: 'Monday',
-    soup: { tr: 'Bahar Çorbası', en: 'Spring Soup', c: 125 },
-    main: { tr: 'Parmak Patlıcan Kebap', en: 'Finger Eggplant Kebab', c: 300 },
-    veg: { tr: 'Soslu Brokoli', en: 'Broccoli with Sauce', c: 162 },
-    side: { tr: 'Kremalı Makarna', en: 'Creamy Pasta', c: 260 },
-    extra: { tr: 'Yoğurt', en: 'Yogurt', c: 90 }
+    soup: { tr: 'Mercimek Çorba', en: 'Lentil Soup', c: 130 },
+    main: { tr: 'Piliç Fajita', en: 'Chicken Fajita', c: 480 },
+    veg: { tr: 'Beşamel Soslu Brokoli', en: 'Broccoli with Bechamel Sauce', c: 280 },
+    side: { tr: 'Soslu Makarna', en: 'Pasta with Sauce', c: 320 },
+    extra: { tr: 'Meyve', en: 'Fruit', c: 80 }
   },
   {
-    date: '2025-12-09',
+    date: '2026-01-06',
     dayTr: 'Salı', dayEn: 'Tuesday',
-    soup: { tr: 'Tel Şehriye Çorbası', en: 'Vermicelli Soup', c: 115 },
-    main: { tr: 'Tavuk Külbastı', en: 'Chicken Cutlet', c: 390 },
-    veg: { tr: 'Çıtır Kabak', en: 'Crispy Zucchini', c: 150 },
-    side: { tr: 'Meyhane Pilavı', en: 'Bulgur Pilaf with Vegetables', c: 290 },
-    extra: { tr: 'Kakaolu Puding', en: 'Cocoa Pudding', c: 115 }
+    soup: { tr: 'Şafak Çorba', en: 'Safak Soup', c: 150 },
+    main: { tr: 'Kıymalı Sebze Sote', en: 'Sautéed Vegetables with Minced Meat', c: 350 },
+    veg: { tr: 'Zeytinyağlı Pırasa', en: 'Leeks in Olive Oil', c: 250 },
+    side: { tr: 'Meyhane Pilavı', en: 'Bulgur Pilaf with Vegetables', c: 320 },
+    extra: { tr: 'Cacık', en: 'Tzatziki', c: 110 }
   },
   {
-    date: '2025-12-10',
+    date: '2026-01-07',
     dayTr: 'Çarşamba', dayEn: 'Wednesday',
-    soup: { tr: 'Tandır Çorba', en: 'Tandoori Soup', c: 183 },
-    main: { tr: 'Etli Kuru Fasulye', en: 'White Beans with Meat', c: 290 },
-    veg: { tr: 'Şakşuka', en: 'Shakshuka', c: 154 },
-    side: { tr: 'Şehriyeli Pirinç Pilavı', en: 'Rice Pilaf with Orzo', c: 390 },
-    extra: { tr: 'Karışık Turşu', en: 'Mixed Pickles', c: 85 }
+    soup: { tr: 'Ezogelin Çorba', en: 'Ezogelin Soup', c: 150 },
+    main: { tr: 'İzmir Köfte', en: 'Izmir Meatballs', c: 540 },
+    veg: { tr: 'Dolma Biber', en: 'Stuffed Peppers', c: 180 },
+    side: { tr: 'Börek', en: 'Pastry (Börek)', c: 380 },
+    extra: { tr: 'Supangle', en: 'Supangle (Chocolate Pudding)', c: 300 }
   },
   {
-    date: '2025-12-11',
+    date: '2026-01-08',
     dayTr: 'Perşembe', dayEn: 'Thursday',
-    soup: { tr: 'Kremalı Tavuk Çorba', en: 'Creamy Chicken Soup', c: 200 },
-    main: { tr: 'Soslu İzmir Köfte', en: 'Izmir Meatballs with Sauce', c: 450 },
-    veg: { tr: 'Ekşili Pırasa', en: 'Leeks with Olive Oil', c: 154 },
-    side: { tr: 'Börek', en: 'Pastry', c: 310 },
-    extra: { tr: 'İçecek', en: 'Beverage', c: 150 }
+    soup: { tr: 'Arapaşı Çorba', en: 'Arapasi Soup', c: 140 },
+    main: { tr: 'Etli Nohut', en: 'Chickpea Stew with Meat', c: 430 },
+    veg: { tr: 'Etsiz Nohut', en: 'Chickpea Stew (Meatless)', c: 350 },
+    side: { tr: 'Şehriyeli Pirinç Pilavı', en: 'Rice Pilaf with Orzo', c: 300 },
+    extra: { tr: 'Mısırlı Salata', en: 'Corn Salad', c: 150 }
   },
   {
-    date: '2025-12-12',
+    date: '2026-01-09',
     dayTr: 'Cuma', dayEn: 'Friday',
-    soup: { tr: 'Kremalı Domates Çorba', en: 'Creamy Tomato Soup', c: 150 },
-    main: { tr: 'Tavuk Döner', en: 'Chicken Doner', c: 450 },
-    veg: { tr: 'Zeytinyağlı Brüksel Lahanası', en: 'Brussels Sprouts in Olive Oil', c: 154 },
-    side: { tr: 'Nohutlu Pirinç Pilavı', en: 'Rice Pilaf with Chickpeas', c: 390 },
-    extra: { tr: 'Salat Bar', en: 'Salad Bar', c: 85 }
+    soup: { tr: 'Yayla Çorba', en: 'Yayla (Yogurt) Soup', c: 100 },
+    main: { tr: 'Ankara Tava', en: 'Ankara Casserole', c: 420 },
+    veg: { tr: 'Arpa Şehriye Pilavı', en: 'Orzo Pilaf', c: 300 },
+    side: { tr: 'Zeytinyağlı Fasulye', en: 'Green Beans in Olive Oil', c: 250 },
+    extra: { tr: 'Meyve', en: 'Fruit', c: 80 }
   },
 
   // 3. Hafta
   {
-    date: '2025-12-15',
+    date: '2026-01-12',
     dayTr: 'Pazartesi', dayEn: 'Monday',
-    soup: { tr: 'Yayla Çorbası', en: 'Yogurt Soup', c: 115 },
-    main: { tr: 'Et Tas Kebap', en: 'Meat Cube Stew', c: 400 },
-    veg: { tr: 'Soslu Patlıcan', en: 'Eggplant with Sauce', c: 154 },
-    side: { tr: 'Tereyağlı Erişte', en: 'Buttered Noodles', c: 230 },
-    extra: { tr: 'Aşure', en: "Noah's Pudding", c: 125 }
+    soup: { tr: 'Ezogelin Çorba', en: 'Ezogelin Soup', c: 140 },
+    main: { tr: 'Piliç Roti', en: 'Roast Chicken', c: 320 },
+    veg: { tr: 'Sebze Buketi', en: 'Vegetable Bouquet', c: 200 },
+    side: { tr: 'Soslu Makarna', en: 'Pasta with Sauce', c: 320 },
+    extra: { tr: 'Meyve', en: 'Fruit', c: 80 }
   },
   {
-    date: '2025-12-16',
+    date: '2026-01-13',
     dayTr: 'Salı', dayEn: 'Tuesday',
-    soup: { tr: 'Tel Şehriye Çorba', en: 'Vermicelli Soup', c: 115 },
-    main: { tr: 'Tavuk Haşlama', en: 'Boiled Chicken', c: 350 },
-    veg: { tr: 'Soslu Brüksel Lahanası', en: 'Brussels Sprouts with Sauce', c: 154 },
-    side: { tr: 'Bulgur Pilavı', en: 'Bulgur Pilaf', c: 290 },
-    extra: { tr: 'Pembe Sultan', en: 'Pink Sultan', c: 70 }
+    soup: { tr: 'Tavuk Çorba', en: 'Chicken Soup', c: 120 },
+    main: { tr: 'Etli Kuru Fasulye', en: 'White Bean Stew with Meat', c: 410 },
+    veg: { tr: 'Fırın Karnabahar', en: 'Baked Cauliflower', c: 170 },
+    side: { tr: 'Şehriyeli Pirinç Pilavı', en: 'Rice Pilaf with Orzo', c: 300 },
+    extra: { tr: 'Turşu', en: 'Pickles', c: 30 }
   },
   {
-    date: '2025-12-17',
+    date: '2026-01-14',
     dayTr: 'Çarşamba', dayEn: 'Wednesday',
-    soup: { tr: 'Tarhana Çorba', en: 'Tarhana Soup', c: 183 },
-    main: { tr: 'Etli Nohut Yahni', en: 'Chickpea Stew with Meat', c: 367 },
-    veg: { tr: 'Karnabahar Kızartma', en: 'Fried Cauliflower', c: 300 },
-    side: { tr: 'Mısırlı Pirinç Pilavı', en: 'Rice Pilaf with Corn', c: 390 },
-    extra: { tr: 'Soğuk Baklava', en: 'Cold Baklava', c: 115 }
+    soup: { tr: 'Domates Çorba', en: 'Tomato Soup', c: 100 },
+    main: { tr: 'Garnitürlü Izgara Köfte', en: 'Grilled Meatballs with Garnish', c: 480 },
+    veg: { tr: 'Şakşuka', en: 'Shakshuka', c: 320 },
+    side: { tr: 'Spagetti', en: 'Spaghetti', c: 320 },
+    extra: { tr: 'Ayran', en: 'Ayran (Yogurt Drink)', c: 115 }
   },
   {
-    date: '2025-12-18',
+    date: '2026-01-15',
     dayTr: 'Perşembe', dayEn: 'Thursday',
-    soup: { tr: 'Ezogelin Çorba', en: 'Ezogelin Soup', c: 195 },
-    main: { tr: 'Dalyan Köfte', en: 'Roast Meatballs', c: 450 },
-    veg: { tr: 'Kabak Mücver', en: 'Zucchini Fritters', c: 200 },
-    side: { tr: 'Soslu Makarna', en: 'Pasta with Sauce', c: 230 },
-    extra: { tr: 'Meyve', en: 'Fruit', c: 70 }
+    soup: { tr: 'Toyga Çorba', en: 'Toyga Soup', c: 135 },
+    main: { tr: 'Etli Türlü', en: 'Mixed Vegetable Stew with Meat', c: 450 },
+    veg: { tr: 'Etsiz Türlü', en: 'Meatless Mixed Vegetable Stew', c: 320 },
+    side: { tr: 'Meyhane Pilavı', en: 'Bulgur Pilaf with Vegetables', c: 320 },
+    extra: { tr: 'Kalburabastı', en: 'Kalburabasti Dessert', c: 320 }
   },
   {
-    date: '2025-12-19',
+    date: '2026-01-16',
     dayTr: 'Cuma', dayEn: 'Friday',
-    soup: { tr: 'Kremalı Domates Çorba', en: 'Creamy Tomato Soup', c: 115 },
-    main: { tr: 'Çıtır Tavuk', en: 'Crispy Chicken', c: 280 },
-    veg: { tr: 'Zeytinyağlı Bamya', en: 'Okra in Olive Oil', c: 154 },
-    side: { tr: 'Şehriyeli Pirinç Pilavı', en: 'Rice Pilaf with Orzo', c: 390 },
-    extra: { tr: 'İçecek', en: 'Beverage', c: 150 }
+    soup: { tr: 'Mercimek Çorba', en: 'Lentil Soup', c: 130 },
+    main: { tr: 'Tas Kebabı', en: 'Bowl Kebab (Tas Kebab)', c: 470 },
+    veg: { tr: 'Kabak Kalye', en: 'Zucchini Stew', c: 220 },
+    side: { tr: 'Börek', en: 'Pastry (Börek)', c: 380 },
+    extra: { tr: 'Haydari', en: 'Haydari (Yogurt Dip)', c: 120 }
   },
 
   // 4. Hafta
   {
-    date: '2025-12-22',
+    date: '2026-01-19',
     dayTr: 'Pazartesi', dayEn: 'Monday',
-    soup: { tr: 'Kremalı Şehriye Çorba', en: 'Creamy Vermicelli Soup', c: 120 },
-    main: { tr: 'Patlıcan Güveç', en: 'Eggplant Casserole', c: 300 },
-    veg: { tr: 'Karnabahar Kızartma', en: 'Fried Cauliflower', c: 300 },
-    side: { tr: 'Börek', en: 'Pastry', c: 310 },
-    extra: { tr: 'Yoğurt', en: 'Yogurt', c: 90 }
+    soup: { tr: 'Mercimek Çorba', en: 'Lentil Soup', c: 130 },
+    main: { tr: 'Püreli Rosto Köfte', en: 'Roast Meatballs with Puree', c: 510 },
+    veg: { tr: 'Ispanak Yemeği', en: 'Spinach Dish', c: 280 },
+    side: { tr: 'Napoliten Soslu Makarna', en: 'Pasta with Neapolitan Sauce', c: 300 },
+    extra: { tr: 'Meyve', en: 'Fruit', c: 80 }
   },
   {
-    date: '2025-12-23',
+    date: '2026-01-20',
     dayTr: 'Salı', dayEn: 'Tuesday',
-    soup: { tr: 'Ezogelin Çorba', en: 'Ezogelin Soup', c: 195 },
-    main: { tr: 'Fırın Kanat', en: 'Oven Baked Chicken Wings', c: 366 },
-    veg: { tr: 'Ekşili Pırasa', en: 'Leeks with Olive Oil', c: 154 },
-    side: { tr: 'Garnitürlü Pirinç Pilavı', en: 'Rice Pilaf with Garnish', c: 390 },
-    extra: { tr: 'Havuç Tarator', en: 'Carrot Tarator', c: 70 }
+    soup: { tr: 'Arabaşı Çorba', en: 'Arabasi Soup', c: 150 },
+    main: { tr: 'Etli Nohut', en: 'Chickpea Stew with Meat', c: 430 },
+    veg: { tr: 'Nohut Yemeği (Etsiz)', en: 'Chickpea Stew (Meatless)', c: 350 },
+    side: { tr: 'Şehriyeli Pirinç Pilavı', en: 'Rice Pilaf with Orzo', c: 300 },
+    extra: { tr: 'Mevsim Salata', en: 'Seasonal Salad', c: 60 }
   },
   {
-    date: '2025-12-24',
+    date: '2026-01-21',
     dayTr: 'Çarşamba', dayEn: 'Wednesday',
-    soup: { tr: 'Salçalı Yarma Çorba', en: 'Wheat Soup with Tomato Paste', c: 183 },
-    main: { tr: 'Etli Kuru Fasulye', en: 'White Beans with Meat', c: 290 },
-    veg: { tr: 'Karışık Kızartma', en: 'Mixed Fried Vegetables', c: 298 },
-    side: { tr: 'Meyhane Pilavı', en: 'Bulgur Pilaf with Vegetables', c: 290 },
-    extra: { tr: 'Kakaolu Puding', en: 'Cocoa Pudding', c: 115 }
+    soup: { tr: 'Yayla Çorba', en: 'Yayla (Yogurt) Soup', c: 135 },
+    main: { tr: 'Orman Kebabı', en: 'Forest Kebab', c: 425 },
+    veg: { tr: 'Bezelye Yemeği', en: 'Peas Dish', c: 260 },
+    side: { tr: 'Peynirli Börek', en: 'Cheese Pastry', c: 380 },
+    extra: { tr: 'Browni', en: 'Brownie', c: 320 }
   },
   {
-    date: '2025-12-25',
+    date: '2026-01-22',
     dayTr: 'Perşembe', dayEn: 'Thursday',
-    soup: { tr: 'Mercimek Çorba', en: 'Lentil Soup', c: 195 },
-    main: { tr: 'Ekşili Misket Köfte', en: 'Sour Meatballs', c: 450 },
-    veg: { tr: 'Soslu Brokoli', en: 'Broccoli with Sauce', c: 162 },
-    side: { tr: 'Soslu Makarna', en: 'Pasta with Sauce', c: 230 },
-    extra: { tr: 'Meyve', en: 'Fruit', c: 70 }
+    soup: { tr: 'Mengen Çorba', en: 'Mengen Soup', c: 120 },
+    main: { tr: 'Tavuk Tantuni', en: 'Chicken Tantuni', c: 400 },
+    veg: { tr: 'Beşamel Soslu Brokoli', en: 'Broccoli with Bechamel Sauce', c: 280 },
+    side: { tr: 'Nohutlu Pirinç Pilavı', en: 'Rice Pilaf with Chickpeas', c: 320 },
+    extra: { tr: 'Ayran', en: 'Ayran (Yogurt Drink)', c: 115 }
   },
   {
-    date: '2025-12-26',
+    date: '2026-01-23',
     dayTr: 'Cuma', dayEn: 'Friday',
-    soup: { tr: 'Düğün Çorba', en: 'Wedding Soup', c: 140 },
-    main: { tr: 'Tavuk Döner - Cips', en: 'Chicken Doner & Chips', c: 450 },
-    veg: { tr: 'Zeytinyağlı Karışık Dolma', en: 'Stuffed Vegetables in Olive Oil', c: 154 },
-    side: { tr: 'Şehriyeli Pirinç Pilavı', en: 'Rice Pilaf with Orzo', c: 390 },
-    extra: { tr: 'Salata', en: 'Salad', c: 85 }
+    soup: { tr: 'Cennet Çorba', en: 'Paradise (Cennet) Soup', c: 140 },
+    main: { tr: 'Karnıyarık', en: 'Split Eggplant with Meat (Karnıyarık)', c: 480 },
+    veg: { tr: 'İmam Bayıldı', en: 'Stuffed Split Eggplant (Imam Bayildi)', c: 330 },
+    side: { tr: 'Bulgur Pilavı', en: 'Bulgur Pilaf', c: 290 },
+    extra: { tr: 'Cacık', en: 'Tzatziki', c: 110 }
   },
 
   // 5. Hafta
   {
-    date: '2025-12-29',
+    date: '2026-01-26',
     dayTr: 'Pazartesi', dayEn: 'Monday',
-    soup: { tr: 'Tel Şehriye Çorba', en: 'Vermicelli Soup', c: 115 },
-    main: { tr: 'Kıymalı Patates Kaplama', en: 'Potato Bake with Minced Meat', c: 300 },
-    veg: { tr: 'Karnabahar Kızartma', en: 'Fried Cauliflower', c: 300 },
-    side: { tr: 'Meyhane Pilavı', en: 'Bulgur Pilaf with Vegetables', c: 290 },
-    extra: { tr: 'Meyve', en: 'Fruit', c: 70 }
+    soup: { tr: 'Şehriye Çorba', en: 'Vermicelli Soup', c: 100 },
+    main: { tr: 'Garnitürlü Tavuk Sarma', en: 'Stuffed Chicken Roll with Garnish', c: 480 },
+    veg: { tr: 'Kabak Mücver', en: 'Zucchini Fritters', c: 220 },
+    side: { tr: 'Garnitürlü Pirinç Pilavı', en: 'Rice Pilaf with Garnish', c: 330 },
+    extra: { tr: 'Ayran', en: 'Ayran (Yogurt Drink)', c: 115 }
   },
   {
-    date: '2025-12-30',
+    date: '2026-01-27',
     dayTr: 'Salı', dayEn: 'Tuesday',
-    soup: { tr: 'Kremalı Domates Çorba', en: 'Creamy Tomato Soup', c: 115 },
-    main: { tr: 'Piliç Topkapı', en: 'Stuffed Chicken', c: 425 },
-    veg: { tr: 'Zeytinyağlı Bamya', en: 'Okra in Olive Oil', c: 154 },
-    side: { tr: 'Kremalı Makarna', en: 'Creamy Pasta', c: 260 },
-    extra: { tr: 'Salata', en: 'Salad', c: 85 }
+    soup: { tr: 'Köy Çorba', en: 'Village Soup', c: 130 },
+    main: { tr: 'Bahçıvan Kebabı', en: 'Gardener\'s Kebab', c: 430 },
+    veg: { tr: 'Ispanak Graten', en: 'Spinach Gratin', c: 300 },
+    side: { tr: 'Kuskus Pilavı', en: 'Couscous Pilaf', c: 310 },
+    extra: { tr: 'Trileçe', en: 'Tres Leches Cake', c: 250 }
   },
   {
-    date: '2025-12-31',
+    date: '2026-01-28',
     dayTr: 'Çarşamba', dayEn: 'Wednesday',
-    soup: { tr: 'Yayla Çorbası', en: 'Yogurt Soup', c: 115 },
-    main: { tr: 'Etli Nohut Yahni', en: 'Chickpea Stew with Meat', c: 367 },
-    veg: { tr: 'Karışık Kızartma', en: 'Mixed Fried Vegetables', c: 298 },
-    side: { tr: 'Şehriyeli Pirinç Pilavı', en: 'Rice Pilaf with Orzo', c: 390 },
-    extra: { tr: 'Karışık Turşu', en: 'Mixed Pickles', c: 85 }
+    soup: { tr: 'Süzme Mercimek Çorba', en: 'Strained Lentil Soup', c: 130 },
+    main: { tr: 'Terbiyeli Köfte', en: 'Meatballs in Sour Sauce', c: 420 },
+    veg: { tr: 'Sebze Buketi', en: 'Vegetable Bouquet', c: 200 },
+    side: { tr: 'Börek', en: 'Pastry (Börek)', c: 380 },
+    extra: { tr: 'Meyve', en: 'Fruit', c: 80 }
+  },
+  {
+    date: '2026-01-29',
+    dayTr: 'Perşembe', dayEn: 'Thursday',
+    soup: { tr: 'Tavuk Çorba', en: 'Chicken Soup', c: 120 },
+    main: { tr: 'Etli Kuru Fasulye', en: 'White Bean Stew with Meat', c: 410 },
+    veg: { tr: 'Etsiz Kuru Fasulye', en: 'Meatless White Bean Stew', c: 350 },
+    side: { tr: 'Arpa Şehriyeli Pirinç Pilavı', en: 'Rice Pilaf with Orzo', c: 300 },
+    extra: { tr: 'Karışık Turşu', en: 'Mixed Pickles', c: 30 }
+  },
+  {
+    date: '2026-01-30',
+    dayTr: 'Cuma', dayEn: 'Friday',
+    soup: { tr: 'Şafak Çorba', en: 'Safak Soup', c: 100 },
+    main: { tr: 'Garnitürlü Cordon Blue', en: 'Cordon Bleu with Garnish', c: 510 },
+    veg: { tr: 'Zeytinyağlı Pırasa', en: 'Leeks in Olive Oil', c: 250 },
+    side: { tr: 'Soslu Makarna', en: 'Pasta with Sauce', c: 320 },
+    extra: { tr: 'Karalahana Havuç Salata', en: 'Kale and Carrot Salad', c: 110 }
   }
 ];
 
@@ -525,7 +507,7 @@ export default function AGUDiningApp() {
     }
   };
 
-  const isCurrentMonthDecember = currentRefDate.getMonth() === 11 && currentRefDate.getFullYear() === 2025;
+  const isCurrentMonthJanuary = currentRefDate.getMonth() === 0 && currentRefDate.getFullYear() === 2026;
   const currentLabels = LABELS[isEnglish ? 'en' : 'tr'];
 
   return (
@@ -624,10 +606,10 @@ export default function AGUDiningApp() {
                   <div className="flex flex-col items-center justify-center py-24 bg-white dark:bg-zinc-900 rounded-2xl border border-dashed border-gray-300 dark:border-zinc-800 w-full">
                     <Utensils size={64} className="text-gray-400 dark:text-slate-600 mb-6" />
                     <h3 className="text-2xl font-semibold text-gray-500 dark:text-slate-400">
-                      {isCurrentMonthDecember ? currentLabels.noService : currentLabels.noData}
+                      {isCurrentMonthJanuary ? currentLabels.noService : currentLabels.noData}
                     </h3>
                     <p className="text-gray-400 dark:text-slate-500 text-base mt-2">
-                      {isCurrentMonthDecember
+                      {isCurrentMonthJanuary
                         ? currentLabels.noServiceDesc
                         : currentLabels.dataNotFoundDesc}
                     </p>
