@@ -293,7 +293,10 @@ const LABELS = {
     noServiceDesc: 'Bu tarih için yemekhane kapalı veya menü planlanmamış.',
     dataNotFoundDesc: 'Bu tarih aralığı için menü verisi mevcut değil.',
     switchVeg: 'Vejetaryen Menüye Geç',
-    switchMain: 'Klasik Menüye Geç'
+    switchMain: 'Klasik Menüye Geç',
+    today: 'Bugün',
+    prevWorkday: 'Önceki İş Günü',
+    nextWorkday: 'Sonraki İş Günü'
   },
   en: {
     daily: 'Daily',
@@ -311,7 +314,10 @@ const LABELS = {
     noServiceDesc: 'The cafeteria is closed or no menu is planned for this date.',
     dataNotFoundDesc: 'No menu data available for this date range.',
     switchVeg: 'Switch to Vegetarian Menu',
-    switchMain: 'Switch to Classic Menu'
+    switchMain: 'Switch to Classic Menu',
+    today: 'Today',
+    prevWorkday: 'Prev Workday',
+    nextWorkday: 'Next Workday'
   }
 };
 
@@ -517,6 +523,34 @@ export default function AGUDiningApp() {
     setIsEnglish(prev => !prev);
   };
 
+  const goToToday = () => {
+    setCurrentRefDate(new Date());
+  };
+
+  const isRefDateToday = () => {
+    const today = new Date();
+    const current = currentRefDate;
+    
+    if (viewMode === 'daily') {
+      return today.getDate() === current.getDate() && 
+             today.getMonth() === current.getMonth() && 
+             today.getFullYear() === current.getFullYear();
+    }
+    if (viewMode === 'weekly') {
+      const getMonday = (d) => {
+        const day = d.getDay();
+        const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+        return new Date(d.getFullYear(), d.getMonth(), diff).getTime();
+      };
+      return getMonday(today) === getMonday(current);
+    }
+    if (viewMode === 'monthly') {
+      return today.getMonth() === current.getMonth() && 
+             today.getFullYear() === current.getFullYear();
+    }
+    return false;
+  };
+
   const changeDate = (direction) => {
     const newDate = new Date(currentRefDate);
 
@@ -657,25 +691,41 @@ export default function AGUDiningApp() {
             ))}
           </div>
 
-          {/* Tarih Navigasyonu */}
-          <div className="flex items-center space-x-4 bg-gray-100 dark:bg-zinc-900 px-4 py-2.5 rounded-xl border border-gray-200 dark:border-zinc-800 w-full md:w-auto justify-between md:justify-end shadow-sm">
+          {/* Tarih Navigasyonu ve Bugün Butonu */}
+          <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+            {/* Bugün Butonu */}
             <button
-              onClick={() => changeDate(-1)}
-              className="p-1.5 rounded-lg bg-white dark:bg-zinc-800 hover:bg-gray-50 dark:hover:bg-zinc-700 text-gray-700 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors shadow-sm hover:shadow"
+              onClick={goToToday}
+              disabled={isRefDateToday()}
+              className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-sm border ${
+                isRefDateToday() 
+                  ? 'bg-gray-50 dark:bg-zinc-800/50 text-gray-400 dark:text-zinc-600 border-transparent cursor-not-allowed'
+                  : 'bg-white dark:bg-zinc-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-zinc-700 border-gray-200 dark:border-zinc-700 hover:text-gray-900 dark:hover:text-white'
+              }`}
             >
-              <ChevronLeft size={20} />
+              {currentLabels.today}
             </button>
 
-            <span className={`text-base font-semibold text-gray-800 dark:text-slate-200 min-w-[160px] text-center ${viewMode === 'monthly' ? 'flex-1' : ''}`}>
-              {getNavTitle()}
-            </span>
+            {/* Tarih Navigasyonu */}
+            <div className="flex items-center space-x-4 bg-gray-100 dark:bg-zinc-900 px-4 py-2.5 rounded-xl border border-gray-200 dark:border-zinc-800 flex-1 md:flex-none justify-between shadow-sm">
+              <button
+                onClick={() => changeDate(-1)}
+                className="p-1.5 rounded-lg bg-white dark:bg-zinc-800 hover:bg-gray-50 dark:hover:bg-zinc-700 text-gray-700 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors shadow-sm hover:shadow"
+              >
+                <ChevronLeft size={20} />
+              </button>
 
-            <button
-              onClick={() => changeDate(1)}
-              className="p-1.5 rounded-lg bg-white dark:bg-zinc-800 hover:bg-gray-50 dark:hover:bg-zinc-700 text-gray-700 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors shadow-sm hover:shadow"
-            >
-              <ChevronRight size={20} />
-            </button>
+              <span className={`text-base font-semibold text-gray-800 dark:text-slate-200 min-w-[160px] text-center ${viewMode === 'monthly' ? 'flex-1' : ''}`}>
+                {getNavTitle()}
+              </span>
+
+              <button
+                onClick={() => changeDate(1)}
+                className="p-1.5 rounded-lg bg-white dark:bg-zinc-800 hover:bg-gray-50 dark:hover:bg-zinc-700 text-gray-700 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors shadow-sm hover:shadow"
+              >
+                <ChevronRight size={20} />
+              </button>
+            </div>
           </div>
         </div>
 
@@ -701,6 +751,36 @@ export default function AGUDiningApp() {
                         ? currentLabels.noServiceDesc
                         : currentLabels.dataNotFoundDesc}
                     </p>
+
+                    {/* Hafta Sonu Akıllı Navigasyon */}
+                    {viewMode === 'daily' && (currentRefDate.getDay() === 0 || currentRefDate.getDay() === 6) && (
+                      <div className="flex items-center gap-4 mt-8">
+                        <button
+                          onClick={() => {
+                            const newDate = new Date(currentRefDate);
+                            // Cumartesi (6) ise 1 gün geri (Cuma), Pazar (0) ise 2 gün geri (Cuma)
+                            newDate.setDate(newDate.getDate() - (newDate.getDay() === 6 ? 1 : 2));
+                            setCurrentRefDate(newDate);
+                          }}
+                          className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-zinc-800 rounded-lg shadow-sm border border-gray-200 dark:border-zinc-700 text-gray-700 dark:text-gray-400 hover:text-[#C41230] dark:hover:text-red-400 hover:border-[#C41230]/30 dark:hover:border-red-400/30 transition-all"
+                        >
+                          <ChevronLeft size={16} />
+                          <span className="text-sm font-semibold">{currentLabels.prevWorkday}</span>
+                        </button>
+                        <button
+                          onClick={() => {
+                            const newDate = new Date(currentRefDate);
+                            // Cumartesi (6) ise 2 gün ileri (Pazartesi), Pazar (0) ise 1 gün ileri (Pazartesi)
+                            newDate.setDate(newDate.getDate() + (newDate.getDay() === 6 ? 2 : 1));
+                            setCurrentRefDate(newDate);
+                          }}
+                          className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-zinc-800 rounded-lg shadow-sm border border-gray-200 dark:border-zinc-700 text-gray-700 dark:text-gray-400 hover:text-[#C41230] dark:hover:text-red-400 hover:border-[#C41230]/30 dark:hover:border-red-400/30 transition-all"
+                        >
+                          <span className="text-sm font-semibold">{currentLabels.nextWorkday}</span>
+                          <ChevronRight size={16} />
+                        </button>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
