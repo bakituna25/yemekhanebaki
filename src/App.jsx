@@ -203,6 +203,57 @@ const RAW_MENU_ITEMS = [
     veg: { tr: 'Zeytinyağlı Pırasa', en: 'Leeks in Olive Oil', c: 250 },
     side: { tr: 'Soslu Makarna', en: 'Pasta with Sauce', c: 320 },
     extra: { tr: 'Karalahana Havuç Salata', en: 'Kale and Carrot Salad', c: 110 }
+  },
+
+  // --- 2026 MAYIS MENÜSÜ (MARJİNAL YEMEK HİZMETLERİ) ---
+  
+  // 1. Hafta
+  { 
+    date: '2026-05-04', 
+    dayTr: 'Pazartesi', dayEn: 'Monday',
+    soup: { tr: 'Zerdeçallı Mercimek Çorbası', en: 'Turmeric Lentil Soup', c: 178 },
+    main: { tr: 'Fırında Piliç', en: 'Baked Chicken', c: 754 },
+    veg: { tr: 'İmam Bayıldı', en: 'Stuffed Eggplant', c: 200 },
+    side: { tr: 'Mısırlı Bulgur Pilavı', en: 'Bulgur Pilaf with Corn', c: 302 },
+    extra: { tr: 'Salata & Ayran', en: 'Salad & Ayran', c: 210 } 
+  },
+  { 
+    date: '2026-05-05', 
+    dayTr: 'Salı', dayEn: 'Tuesday',
+    soup: { tr: 'Alaca Çorba', en: 'Alaca Soup', c: 175 },
+    main: { tr: 'Kıymalı Taze Fasulye', en: 'Green Beans with Minced Meat', c: 289 },
+    veg: { tr: 'Beşamel Soslu Patates', en: 'Potatoes with Béchamel Sauce', c: 396 },
+    side: { tr: 'Şehriyeli Pirinç Pilavı', en: 'Rice Pilaf with Orzo', c: 341 },
+    extra: { tr: 'Meyveli Yaş Pasta', en: 'Fruit Cake', c: 250 } 
+  },
+  { 
+    date: '2026-05-06', 
+    dayTr: 'Çarşamba', dayEn: 'Wednesday',
+    soup: { tr: 'Cennet Çorbası', en: 'Cennet Soup', c: 105 },
+    main: { tr: 'İzmir Köfte', en: 'Izmir Meatballs', c: 785 },
+    veg: { tr: 'Zeytinyağlı Biber Dolma', en: 'Stuffed Peppers', c: 100 },
+    side: { tr: 'Yoğurtlu Makarna', en: 'Pasta with Yogurt', c: 392 },
+    extra: { tr: 'Meyve', en: 'Fruit', c: 200 } 
+  },
+
+  // 2. Hafta
+  { 
+    date: '2026-05-11', 
+    dayTr: 'Pazartesi', dayEn: 'Monday',
+    soup: { tr: 'Sebze Çorbası', en: 'Vegetable Soup', c: 265 },
+    main: { tr: 'Kadınbudu Köfte & Patates', en: 'Kadınbudu Meatballs & Potatoes', c: 363 },
+    veg: { tr: 'Mantar Sote', en: 'Sauteed Mushrooms', c: 280 },
+    side: { tr: 'Soslu Spagetti', en: 'Spaghetti with Sauce', c: 290 },
+    extra: { tr: 'Salata', en: 'Salad', c: 135 } 
+  },
+  { 
+    date: '2026-05-12', 
+    dayTr: 'Salı', dayEn: 'Tuesday',
+    soup: { tr: 'Arabaşı Çorbası', en: 'Arabaşı Soup', c: 308 },
+    main: { tr: 'Etli Patates Tava', en: 'Potato Pan with Meat', c: 430 },
+    veg: { tr: 'Beşamel Soslu Karnabahar', en: 'Cauliflower with Béchamel Sauce', c: 536 },
+    side: { tr: 'Arpa Şehriye Pilavı', en: 'Orzo Pilaf', c: 341 },
+    extra: { tr: 'Kıbrıs Tatlısı', en: 'Cyprus Dessert', c: 350 } 
   }
 ];
 
