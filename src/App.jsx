@@ -437,7 +437,7 @@ const DailyMenuCard = ({ menu, isToday, compact = false, expanded = false, isEng
 };
 
 export default function AGUDiningApp() {
-  const [viewMode, setViewMode] = useState('weekly'); // 'daily', 'weekly', 'monthly'
+  const [viewMode, setViewMode] = useState('daily'); // 'daily', 'weekly', 'monthly'
   const [currentRefDate, setCurrentRefDate] = useState(new Date());
 
   // Dark mode state'ini localStorage'dan oku, yoksa sistem tercihini kullan
