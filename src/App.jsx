@@ -638,7 +638,7 @@ export default function AGUDiningApp() {
         <div className="w-full max-w-[1600px] mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center text-gray-900 dark:text-white font-bold text-lg tracking-tight">
             <Clock className="mr-2" size={24} />
-            <span>11.00 - 14.00</span>
+            <span>11.00 - 14.30</span>
           </div>
 
           <div className="flex items-center space-x-2">
