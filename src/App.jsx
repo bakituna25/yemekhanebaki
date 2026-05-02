@@ -235,6 +235,24 @@ const RAW_MENU_ITEMS = [
     side: { tr: 'Yoğurtlu Makarna', en: 'Pasta with Yogurt', c: 392 },
     extra: { tr: 'Meyve', en: 'Fruit', c: 200 } 
   },
+  { 
+    date: '2026-05-07', 
+    dayTr: 'Perşembe', dayEn: 'Thursday',
+    soup: { tr: 'Ezogelin Çorbası', en: 'Ezogelin Soup', c: 186 },
+    main: { tr: 'Kıymalı Patlıcan Musakka', en: 'Eggplant Moussaka', c: 368 },
+    veg: { tr: 'Karışık Kızartma', en: 'Mixed Fried Vegetables', c: 436 },
+    side: { tr: 'Nohutlu Pirinç Pilavı', en: 'Rice Pilaf with Chickpeas', c: 376 },
+    extra: { tr: 'Yoğurt', en: 'Yogurt', c: 136 } 
+  },
+  { 
+    date: '2026-05-08', 
+    dayTr: 'Cuma', dayEn: 'Friday',
+    soup: { tr: 'Kremalı Mantar Çorbası', en: 'Cream of Mushroom Soup', c: 231 },
+    main: { tr: 'Tas Kebabı', en: 'Tas Kebab', c: 785 },
+    veg: { tr: 'Zeytinyağlı Barbunya', en: 'Pinto Beans in Olive Oil', c: 190 },
+    side: { tr: 'Saçaklı Pilav', en: 'Pilaf with Orzo', c: 302 },
+    extra: { tr: 'Revani', en: 'Revani Dessert', c: 350 } 
+  },
 
   // 2. Hafta
   { 
