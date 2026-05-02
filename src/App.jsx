@@ -439,15 +439,25 @@ export default function AGUDiningApp() {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('darkMode');
       console.log('🚀 Initializing dark mode. localStorage value:', saved);
+      
+      let initialValue = false;
       // Eğer kullanıcı daha önce bir tercih yapmışsa onu kullan
       if (saved !== null) {
         console.log('📦 Using saved preference:', saved);
-        return saved === 'true';
+        initialValue = saved === 'true';
+      } else {
+        // Yoksa sistem tercihini kontrol et
+        initialValue = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        console.log('🖥️ No saved preference, using system preference:', initialValue ? 'dark' : 'light');
       }
-      // Yoksa sistem tercihini kontrol et
-      const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      console.log('🖥️ No saved preference, using system preference:', systemPrefersDark ? 'dark' : 'light');
-      return systemPrefersDark;
+      
+      if (initialValue) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      
+      return initialValue;
     }
     return false;
   });
@@ -490,6 +500,15 @@ export default function AGUDiningApp() {
     setIsDarkMode(prev => {
       const newValue = !prev;
       console.log('🌓 Changing to:', newValue ? 'dark' : 'light');
+      
+      if (newValue) {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('darkMode', 'true');
+      } else {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('darkMode', 'false');
+      }
+      
       return newValue;
     });
   };
