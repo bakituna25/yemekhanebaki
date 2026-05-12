@@ -399,7 +399,7 @@ const getTodayDateString = () => {
 const MealCard = ({ title, item, isVeg = false, toggleAction = null }) => (
   <div
     onClick={toggleAction}
-    className={`flex items-center py-4 border-b border-gray-100 dark:border-slate-700/50 last:border-0 hover:bg-gray-50 dark:hover:bg-slate-800/50 transition-colors px-3 rounded-lg -mx-2 ${toggleAction ? 'cursor-pointer group select-none active:bg-gray-100 dark:active:bg-slate-800' : ''}`}
+    className={`flex items-center py-3 sm:py-4 border-b border-gray-100 dark:border-slate-700/50 last:border-0 hover:bg-gray-50 dark:hover:bg-slate-800/50 transition-colors px-2.5 sm:px-3 rounded-lg -mx-1 sm:-mx-2 ${toggleAction ? 'cursor-pointer group select-none active:bg-gray-100 dark:active:bg-slate-800' : ''}`}
   >
 
     <div className="flex-1 min-w-0 mr-4">
@@ -460,7 +460,7 @@ const DailyMenuCard = ({ menu, isToday, compact = false, expanded = false, isEng
           {texts.todayMenu}
         </div>
       )}
-      <div className={`p-6 sm:p-8 flex flex-col ${expanded ? 'justify-center h-full' : ''}`}>
+      <div className={`p-4 sm:p-6 md:p-8 flex flex-col ${expanded ? 'justify-center h-full' : ''}`}>
         <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-100 dark:border-slate-700/50">
           <div>
             <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-slate-100 mb-1">{dayName}</h3>
@@ -700,42 +700,42 @@ export default function AGUDiningApp() {
   const currentLabels = LABELS[isEnglish ? 'en' : 'tr'];
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-black font-sans text-gray-900 dark:text-slate-200 selection:bg-[#C41230] selection:text-white transition-colors duration-300">
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-black font-sans text-gray-900 dark:text-slate-200 selection:bg-[#C41230] selection:text-white transition-colors duration-300 overflow-x-hidden">
       <header className="bg-white dark:bg-zinc-900 backdrop-blur-md border-b border-gray-200 dark:border-zinc-800 sticky top-0 z-50 transition-colors duration-300">
-        <div className="w-full max-w-[1600px] mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center text-gray-900 dark:text-white font-bold text-lg tracking-tight">
-            <Clock className="mr-2" size={24} />
-            <span>11.00 - 14.30</span>
+        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+          <div className="flex items-center text-gray-900 dark:text-white font-bold text-base sm:text-lg tracking-tight flex-shrink-0">
+            <Clock className="mr-1.5 sm:mr-2 flex-shrink-0" size={20} />
+            <span className="whitespace-nowrap">11.00 - 14.30</span>
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-1.5 sm:space-x-2 flex-shrink-0">
             {/* Dil Değiştirme Butonu */}
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors"
+              className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors flex-shrink-0"
               title={isEnglish ? "Türkçe'ye Geç" : "Switch to English"}
             >
-              <Languages size={18} />
+              <Languages size={16} className="sm:w-[18px] sm:h-[18px]" />
               <span>{isEnglish ? 'EN' : 'TR'}</span>
             </button>
 
-            <div className="w-px h-6 bg-gray-200 dark:bg-zinc-700 mx-1"></div>
+            <div className="w-px h-5 sm:h-6 bg-gray-200 dark:bg-zinc-700 mx-0.5 sm:mx-1 flex-shrink-0"></div>
 
             {/* Tema Değiştirme Butonu */}
             <button
               onClick={toggleDarkMode}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors"
+              className="p-1.5 sm:p-2 rounded-lg bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors flex-shrink-0"
               aria-label="Toggle Dark Mode"
             >
-              {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+              {isDarkMode ? <Sun size={18} className="sm:w-[20px] sm:h-[20px]" /> : <Moon size={18} className="sm:w-[20px] sm:h-[20px]" />}
             </button>
           </div>
         </div>
       </header>
 
-      <main className="flex-1 flex flex-col w-full max-w-[1600px] mx-auto px-6 py-6 sm:py-8">
+      <main className="flex-1 flex flex-col w-full max-w-[1600px] mx-auto px-4 sm:px-6 py-6 sm:py-8">
 
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 w-full">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-6 sm:mb-8 gap-3 sm:gap-4 w-full">
 
           {/* Görünüm Seçici (Daily/Weekly/Monthly) */}
           <div className="flex bg-gray-100 dark:bg-zinc-900 p-1 rounded-xl border border-gray-200 dark:border-zinc-800 w-full md:w-auto shadow-sm">
@@ -747,7 +747,7 @@ export default function AGUDiningApp() {
               <button
                 key={mode.id}
                 onClick={() => setViewMode(mode.id)}
-                className={`flex-1 md:flex-none flex items-center justify-center space-x-2 px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${viewMode === mode.id
+                className={`flex-1 md:flex-none flex items-center justify-center space-x-1.5 sm:space-x-2 px-3 sm:px-6 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-medium transition-all flex-shrink-0 whitespace-nowrap ${viewMode === mode.id
                   ? 'bg-white dark:bg-zinc-700 text-gray-900 dark:text-white shadow-sm ring-1 ring-gray-200 dark:ring-zinc-600'
                   : 'bg-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-white/80 dark:hover:bg-zinc-800'
                   }`}
@@ -759,12 +759,12 @@ export default function AGUDiningApp() {
           </div>
 
           {/* Tarih Navigasyonu ve Bugün Butonu */}
-          <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+          <div className="flex items-center gap-2 sm:gap-3 w-full md:w-auto justify-between md:justify-end">
             {/* Bugün Butonu */}
             <button
               onClick={goToToday}
               disabled={isRefDateToday()}
-              className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-sm border ${
+              className={`px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all shadow-sm border flex-shrink-0 whitespace-nowrap ${
                 isRefDateToday() 
                   ? 'bg-gray-50 dark:bg-zinc-800/50 text-gray-400 dark:text-zinc-600 border-transparent cursor-not-allowed'
                   : 'bg-white dark:bg-zinc-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-zinc-700 border-gray-200 dark:border-zinc-700 hover:text-gray-900 dark:hover:text-white'
@@ -774,23 +774,23 @@ export default function AGUDiningApp() {
             </button>
 
             {/* Tarih Navigasyonu */}
-            <div className="flex items-center space-x-4 bg-gray-100 dark:bg-zinc-900 px-4 py-2.5 rounded-xl border border-gray-200 dark:border-zinc-800 flex-1 md:flex-none justify-between shadow-sm">
+            <div className="flex items-center space-x-2 sm:space-x-4 bg-gray-100 dark:bg-zinc-900 px-2 sm:px-4 py-1.5 sm:py-2.5 rounded-xl border border-gray-200 dark:border-zinc-800 flex-1 md:flex-none justify-between shadow-sm min-w-0">
               <button
                 onClick={() => changeDate(-1)}
-                className="p-1.5 rounded-lg bg-white dark:bg-zinc-800 hover:bg-gray-50 dark:hover:bg-zinc-700 text-gray-700 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors shadow-sm hover:shadow"
+                className="p-1 sm:p-1.5 rounded-lg bg-white dark:bg-zinc-800 hover:bg-gray-50 dark:hover:bg-zinc-700 text-gray-700 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors shadow-sm hover:shadow flex-shrink-0"
               >
-                <ChevronLeft size={20} />
+                <ChevronLeft size={18} className="sm:w-[20px] sm:h-[20px]" />
               </button>
 
-              <span className={`text-base font-semibold text-gray-800 dark:text-slate-200 min-w-[160px] text-center ${viewMode === 'monthly' ? 'flex-1' : ''}`}>
+              <span className={`text-sm sm:text-base font-semibold text-gray-800 dark:text-slate-200 min-w-[120px] sm:min-w-[160px] text-center whitespace-nowrap truncate px-1 ${viewMode === 'monthly' ? 'flex-1' : ''}`}>
                 {getNavTitle()}
               </span>
 
               <button
                 onClick={() => changeDate(1)}
-                className="p-1.5 rounded-lg bg-white dark:bg-zinc-800 hover:bg-gray-50 dark:hover:bg-zinc-700 text-gray-700 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors shadow-sm hover:shadow"
+                className="p-1 sm:p-1.5 rounded-lg bg-white dark:bg-zinc-800 hover:bg-gray-50 dark:hover:bg-zinc-700 text-gray-700 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors shadow-sm hover:shadow flex-shrink-0"
               >
-                <ChevronRight size={20} />
+                <ChevronRight size={18} className="sm:w-[20px] sm:h-[20px]" />
               </button>
             </div>
           </div>
@@ -821,7 +821,7 @@ export default function AGUDiningApp() {
 
                     {/* Hafta Sonu Akıllı Navigasyon */}
                     {viewMode === 'daily' && (currentRefDate.getDay() === 0 || currentRefDate.getDay() === 6) && (
-                      <div className="flex items-center gap-4 mt-8">
+                      <div className="flex items-center gap-2 sm:gap-4 mt-6 sm:mt-8 flex-wrap justify-center">
                         <button
                           onClick={() => {
                             const newDate = new Date(currentRefDate);
@@ -829,10 +829,10 @@ export default function AGUDiningApp() {
                             newDate.setDate(newDate.getDate() - (newDate.getDay() === 6 ? 1 : 2));
                             setCurrentRefDate(newDate);
                           }}
-                          className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-zinc-800 rounded-lg shadow-sm border border-gray-200 dark:border-zinc-700 text-gray-700 dark:text-gray-400 hover:text-[#C41230] dark:hover:text-red-400 hover:border-[#C41230]/30 dark:hover:border-red-400/30 transition-all"
+                          className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-white dark:bg-zinc-800 rounded-lg shadow-sm border border-gray-200 dark:border-zinc-700 text-gray-700 dark:text-gray-400 hover:text-[#C41230] dark:hover:text-red-400 hover:border-[#C41230]/30 dark:hover:border-red-400/30 transition-all flex-shrink-0"
                         >
                           <ChevronLeft size={16} />
-                          <span className="text-sm font-semibold">{currentLabels.prevWorkday}</span>
+                          <span className="text-xs sm:text-sm font-semibold whitespace-nowrap">{currentLabels.prevWorkday}</span>
                         </button>
                         <button
                           onClick={() => {
@@ -841,9 +841,9 @@ export default function AGUDiningApp() {
                             newDate.setDate(newDate.getDate() + (newDate.getDay() === 6 ? 2 : 1));
                             setCurrentRefDate(newDate);
                           }}
-                          className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-zinc-800 rounded-lg shadow-sm border border-gray-200 dark:border-zinc-700 text-gray-700 dark:text-gray-400 hover:text-[#C41230] dark:hover:text-red-400 hover:border-[#C41230]/30 dark:hover:border-red-400/30 transition-all"
+                          className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-white dark:bg-zinc-800 rounded-lg shadow-sm border border-gray-200 dark:border-zinc-700 text-gray-700 dark:text-gray-400 hover:text-[#C41230] dark:hover:text-red-400 hover:border-[#C41230]/30 dark:hover:border-red-400/30 transition-all flex-shrink-0"
                         >
-                          <span className="text-sm font-semibold">{currentLabels.nextWorkday}</span>
+                          <span className="text-xs sm:text-sm font-semibold whitespace-nowrap">{currentLabels.nextWorkday}</span>
                           <ChevronRight size={16} />
                         </button>
                       </div>
