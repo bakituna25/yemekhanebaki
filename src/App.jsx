@@ -272,7 +272,74 @@ const RAW_MENU_ITEMS = [
     veg: { tr: 'Beşamel Soslu Karnabahar', en: 'Cauliflower with Béchamel Sauce', c: 536 },
     side: { tr: 'Arpa Şehriye Pilavı', en: 'Orzo Pilaf', c: 341 },
     extra: { tr: 'Kıbrıs Tatlısı', en: 'Cyprus Dessert', c: 350 } 
+  },
+  { 
+    date: '2026-05-13', 
+    dayTr: 'Çarşamba', dayEn: 'Wednesday',
+    soup: { tr: 'Mercimek Çorbası', en: 'Lentil Soup', c: 178 },
+    main: { tr: 'Patlıcan Kebap', en: 'Eggplant Kebab', c: 586 },
+    veg: { tr: 'Zeytinyağlı Bezelye', en: 'Peas in Olive Oil', c: 328 },
+    side: { tr: 'Bulgur Pilavı', en: 'Bulgur Pilaf', c: 296 },
+    extra: { tr: 'Cacık', en: 'Tzatziki', c: 114 } 
+  },
+  { 
+    date: '2026-05-14', 
+    dayTr: 'Perşembe', dayEn: 'Thursday',
+    soup: { tr: 'Şehriye Çorbası', en: 'Vermicelli Soup', c: 190 },
+    main: { tr: 'Etli Kuru Fasulye', en: 'White Bean Stew with Meat', c: 430 },
+    veg: { tr: 'Zeytinyağlı Kereviz', en: 'Celery in Olive Oil', c: 345 },
+    side: { tr: 'Pırlanta Pilavı', en: 'Pırlanta Pilaf', c: 315 },
+    extra: { tr: 'Şekerpare', en: 'Şekerpare Dessert', c: 375 } 
+  },
+  { 
+    date: '2026-05-15', 
+    dayTr: 'Cuma', dayEn: 'Friday',
+    soup: { tr: 'Tarhana Çorbası', en: 'Tarhana Soup', c: 196 },
+    main: { tr: 'Sebzeli Tavuk Sote', en: 'Chicken Saute with Vegetables', c: 658 },
+    veg: { tr: 'Yaz Kızartması', en: 'Summer Fries', c: 424 },
+    side: { tr: 'Şehriyeli Pirinç Pilavı', en: 'Rice Pilaf with Orzo', c: 341 },
+    extra: { tr: 'Ayran', en: 'Ayran', c: 75 } 
+  },
+
+  // 4. Hafta
+  { 
+    date: '2026-05-18', 
+    dayTr: 'Pazartesi', dayEn: 'Monday',
+    soup: { tr: 'Yayla Çorbası', en: 'Yayla Soup', c: 169 },
+    main: { tr: 'Orman Kebabı', en: 'Forest Kebab', c: 782 },
+    veg: { tr: 'Zeytinyağlı Taze Fasulye', en: 'Green Beans in Olive Oil', c: 167 },
+    side: { tr: 'Şehriyeli Pirinç Pilavı', en: 'Rice Pilaf with Orzo', c: 341 },
+    extra: { tr: 'Puding', en: 'Pudding', c: 295 } 
+  },
+  // 19 Mayıs Salı - Resmi Tatil
+  { 
+    date: '2026-05-20', 
+    dayTr: 'Çarşamba', dayEn: 'Wednesday',
+    soup: { tr: 'Zerdeçallı Mercimek Çorbası', en: 'Turmeric Lentil Soup', c: 179 },
+    main: { tr: 'Fırın Tavuk & Salata', en: 'Baked Chicken & Salad', c: 762 },
+    veg: { tr: 'Şakşuka', en: 'Shakshuka', c: 365 },
+    side: { tr: 'Saçaklı Pilav', en: 'Pilaf with Orzo', c: 302 },
+    extra: { tr: 'Ayran', en: 'Ayran', c: 75 } 
+  },
+  { 
+    date: '2026-05-21', 
+    dayTr: 'Perşembe', dayEn: 'Thursday',
+    soup: { tr: 'Ezogelin Çorbası', en: 'Ezogelin Soup', c: 186 },
+    main: { tr: 'Patates Oturtma', en: 'Potato Oturtma', c: 430 },
+    veg: { tr: 'Zeytinyağlı Barbunya', en: 'Pinto Beans in Olive Oil', c: 190 },
+    side: { tr: 'Yoğurtlu Makarna', en: 'Pasta with Yogurt', c: 392 },
+    extra: { tr: 'Baklava', en: 'Baklava', c: 425 } 
+  },
+  { 
+    date: '2026-05-22', 
+    dayTr: 'Cuma', dayEn: 'Friday',
+    soup: { tr: 'Soğuk Çorba', en: 'Cold Soup', c: 157 },
+    main: { tr: 'Fırında Sebzeli Köfte', en: 'Baked Meatballs with Vegetables', c: 597 },
+    veg: { tr: 'Sebze Türlü', en: 'Mixed Vegetable Stew', c: 180 },
+    side: { tr: 'Mısırlı Pirinç Pilavı', en: 'Rice Pilaf with Corn', c: 350 },
+    extra: { tr: 'Meyve', en: 'Fruit', c: 105 } 
   }
+  // 25-29 Mayıs - Resmi Tatil
 ];
 
 // Dil metinleri
