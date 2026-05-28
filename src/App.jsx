@@ -338,8 +338,104 @@ const RAW_MENU_ITEMS = [
     veg: { tr: 'Sebze Türlü', en: 'Mixed Vegetable Stew', c: 180 },
     side: { tr: 'Mısırlı Pirinç Pilavı', en: 'Rice Pilaf with Corn', c: 350 },
     extra: { tr: 'Meyve', en: 'Fruit', c: 105 } 
-  }
+  },
   // 25-29 Mayıs - Resmi Tatil
+
+  // --- 2026 HAZİRAN MENÜSÜ ---
+  
+  // 1. Hafta
+  { 
+    date: '2026-06-01', 
+    dayTr: 'Pazartesi', dayEn: 'Monday',
+    soup: { tr: 'Mercimek Çorba', en: 'Lentil Soup', c: 130 },
+    main: { tr: 'İçli Köfte / Söğüş', en: 'Kibbeh / Cold Cuts', c: 400 },
+    veg: { tr: 'Karışık Kızartma', en: 'Mixed Fried Vegetables', c: 280 },
+    side: { tr: 'Soslu Spagetti', en: 'Spaghetti with Sauce', c: 260 },
+    extra: { tr: 'Ayran', en: 'Ayran', c: 50 } 
+  },
+  { 
+    date: '2026-06-02', 
+    dayTr: 'Salı', dayEn: 'Tuesday',
+    soup: { tr: 'Ayran Aşı', en: 'Cold Yogurt Soup', c: 110 },
+    main: { tr: 'Karnıyarık', en: 'Stuffed Eggplant', c: 270 },
+    veg: { tr: 'Sebze Türlü', en: 'Vegetable Stew', c: 150 },
+    side: { tr: 'Şehriyeli Pirinç Pilavı', en: 'Rice Pilaf with Orzo', c: 320 },
+    extra: { tr: 'Şekerpare', en: 'Şekerpare Dessert', c: 350 } 
+  },
+  { 
+    date: '2026-06-03', 
+    dayTr: 'Çarşamba', dayEn: 'Wednesday',
+    soup: { tr: 'Ezogelin Çorba', en: 'Ezogelin Soup', c: 130 },
+    main: { tr: 'Çardak Kebabı', en: 'Çardak Kebab', c: 350 },
+    veg: { tr: 'Beşamel Soslu Karnabahar', en: 'Cauliflower with Béchamel', c: 220 },
+    side: { tr: 'Sebzeli Erişte', en: 'Noodles with Vegetables', c: 250 },
+    extra: { tr: 'Salata', en: 'Salad', c: 50 } 
+  },
+  { 
+    date: '2026-06-04', 
+    dayTr: 'Perşembe', dayEn: 'Thursday',
+    soup: { tr: 'Kremalı Mantar Çorba', en: 'Cream of Mushroom Soup', c: 180 },
+    main: { tr: 'Etli Nohut', en: 'Chickpeas with Meat', c: 300 },
+    veg: { tr: 'Zeytinyağlı Kereviz', en: 'Celery in Olive Oil', c: 180 },
+    side: { tr: 'Saçaklı Pilav', en: 'Pilaf with Orzo', c: 330 },
+    extra: { tr: 'Yaş Pasta', en: 'Cake', c: 300 } 
+  },
+  { 
+    date: '2026-06-05', 
+    dayTr: 'Cuma', dayEn: 'Friday',
+    soup: { tr: 'Domates Çorba', en: 'Tomato Soup', c: 120 },
+    main: { tr: 'Fırın Tavuk / Mevsim Salata', en: 'Baked Chicken / Seasonal Salad', c: 300 },
+    veg: { tr: 'Zeytinyağlı Bezelye', en: 'Peas in Olive Oil', c: 200 },
+    side: { tr: 'Yoğurtlu Makarna', en: 'Pasta with Yogurt', c: 250 },
+    extra: { tr: 'Meyve', en: 'Fruit', c: 60 } 
+  },
+
+  // 2. Hafta
+  { 
+    date: '2026-06-08', 
+    dayTr: 'Pazartesi', dayEn: 'Monday',
+    soup: { tr: 'Ezogelin Çorba', en: 'Ezogelin Soup', c: 130 },
+    main: { tr: 'Patlıcan Kebabı', en: 'Eggplant Kebab', c: 320 },
+    veg: { tr: 'Mantar Sote', en: 'Sautéed Mushrooms', c: 150 },
+    side: { tr: 'Avşar Pilavı', en: 'Avşar Pilaf', c: 320 },
+    extra: { tr: 'Yoğurt', en: 'Yogurt', c: 60 } 
+  },
+  { 
+    date: '2026-06-09', 
+    dayTr: 'Salı', dayEn: 'Tuesday',
+    soup: { tr: 'Ayran Aşı', en: 'Cold Yogurt Soup', c: 110 },
+    main: { tr: 'Kıymalı Biber Dolma', en: 'Stuffed Peppers with Meat', c: 270 },
+    veg: { tr: 'Zeytinyağlı Taze Fasülye', en: 'Green Beans in Olive Oil', c: 200 },
+    side: { tr: 'Patatesli Çatal Börek', en: 'Potato Pastry', c: 280 },
+    extra: { tr: 'Tulumba', en: 'Tulumba Dessert', c: 300 } 
+  },
+  { 
+    date: '2026-06-10', 
+    dayTr: 'Çarşamba', dayEn: 'Wednesday',
+    soup: { tr: 'Zerdeçallı Mercimek Çorba', en: 'Turmeric Lentil Soup', c: 130 },
+    main: { tr: 'İzmir Köfte', en: 'Izmir Meatballs', c: 320 },
+    veg: { tr: 'Sebze Graten', en: 'Vegetable Gratin', c: 220 },
+    side: { tr: 'Soslu Makarna', en: 'Pasta with Sauce', c: 260 },
+    extra: { tr: 'Meyve', en: 'Fruit', c: 60 } 
+  },
+  { 
+    date: '2026-06-11', 
+    dayTr: 'Perşembe', dayEn: 'Thursday',
+    soup: { tr: 'Alaca Çorba', en: 'Alaca Soup', c: 140 },
+    main: { tr: 'Etli Kuru Fasülye', en: 'White Beans with Meat', c: 350 },
+    veg: { tr: 'İmam Bayıldı', en: 'Stuffed Eggplant', c: 230 },
+    side: { tr: 'Şehriyeli Pirinç Pilavı', en: 'Rice Pilaf with Orzo', c: 320 },
+    extra: { tr: 'Kıbrıs Tatlısı', en: 'Cyprus Dessert', c: 290 } 
+  },
+  { 
+    date: '2026-06-12', 
+    dayTr: 'Cuma', dayEn: 'Friday',
+    soup: { tr: 'Sebze Çorba', en: 'Vegetable Soup', c: 180 },
+    main: { tr: 'Mantarlı Tavuk Sote', en: 'Chicken Sauté with Mushrooms', c: 300 },
+    veg: { tr: 'Şakşuka', en: 'Shakshuka', c: 280 },
+    side: { tr: 'Saçaklı Pilav', en: 'Pilaf with Orzo', c: 330 },
+    extra: { tr: 'Salata', en: 'Salad', c: 50 } 
+  }
 ];
 
 // Dil metinleri
