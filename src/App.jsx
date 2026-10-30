@@ -847,6 +847,207 @@ const RAW_MENU_ITEMS = [
     veg: { tr: 'Zeytinyağlı Barbunya Pilaki', en: 'Pinto Beans in Olive Oil (Barbunya Pilaki)', c: 480 },
     side: { tr: 'Dom.Bulgur Pilavı', en: 'Tomato Bulgur Pilaf', c: 285 },
     extra: { tr: 'Haydari', en: 'Haydari (Yogurt Dip)', c: 96 }
+  },
+
+  // --- 2026 KASIM MENÜSÜ ---
+  
+  // 1. Hafta
+  {
+    date: '2026-11-02',
+    dayTr: 'Pazartesi', dayEn: 'Monday',
+    soup: { tr: 'Süzme Mercimek Çorba', en: 'Strained Lentil Soup', c: 108 },
+    main: { tr: 'Kıymalı Ispanak + Yoğurt', en: 'Minced Meat Spinach with Yogurt', c: 182 },
+    veg: { tr: 'Fırın Türlü', en: 'Baked Mixed Vegetables', c: 177 },
+    side: { tr: 'Soslu Makarna', en: 'Pasta with Sauce', c: 300 },
+    extra: { tr: 'Tiramisu', en: 'Tiramisu', c: 440 }
+  },
+  {
+    date: '2026-11-03',
+    dayTr: 'Salı', dayEn: 'Tuesday',
+    soup: { tr: 'Tavuk Suyu Çorba', en: 'Chicken Broth Soup', c: 144 },
+    main: { tr: 'Etli Nohut', en: 'Chickpea Stew with Meat', c: 427 },
+    veg: { tr: 'Karışık Kızartma', en: 'Mixed Fried Vegetables', c: 385 },
+    side: { tr: 'Pirinç Pilavı', en: 'Rice Pilaf', c: 300 },
+    extra: { tr: 'Salata Bar', en: 'Salad Bar', c: 90 }
+  },
+  {
+    date: '2026-11-04',
+    dayTr: 'Çarşamba', dayEn: 'Wednesday',
+    soup: { tr: 'Yayla Çorba', en: 'Yayla (Yogurt) Soup', c: 100 },
+    main: { tr: 'Püreli Köfte', en: 'Meatballs with Puree', c: 367 },
+    veg: { tr: 'Patates Borani', en: 'Potato Borani', c: 250 },
+    side: { tr: 'Sebzeli Bulgur Pilavı', en: 'Bulgur Pilaf with Vegetables', c: 280 },
+    extra: { tr: 'Meyve', en: 'Fruit', c: 55 }
+  },
+  {
+    date: '2026-11-05',
+    dayTr: 'Perşembe', dayEn: 'Thursday',
+    soup: { tr: 'Ezogelin Çorba', en: 'Ezogelin Soup', c: 90 },
+    main: { tr: 'Tavuk Döner + Turşu', en: 'Chicken Doner with Pickles', c: 280 },
+    veg: { tr: 'Sebze Mix', en: 'Mixed Vegetables', c: 180 },
+    side: { tr: 'Pirinç Pilavı', en: 'Rice Pilaf', c: 300 },
+    extra: { tr: 'Karışık İçecek', en: 'Mixed Beverage', c: 104 }
+  },
+  {
+    date: '2026-11-06',
+    dayTr: 'Cuma', dayEn: 'Friday',
+    soup: { tr: 'Kremalı Domates Çorba', en: 'Cream of Tomato Soup', c: 63 },
+    main: { tr: 'Orman Kebabı', en: 'Forest Kebab', c: 357 },
+    veg: { tr: 'Beşamel Soslu Ispanak', en: 'Spinach with Bechamel Sauce', c: 280 },
+    side: { tr: 'Peynirli Börek', en: 'Cheese Pastry (Börek)', c: 430 },
+    extra: { tr: 'Şekerpare', en: 'Şekerpare Dessert', c: 283 }
+  },
+
+  // 2. Hafta
+  {
+    date: '2026-11-09',
+    dayTr: 'Pazartesi', dayEn: 'Monday',
+    soup: { tr: 'Yoğurt Çorba', en: 'Yogurt Soup', c: 100 },
+    main: { tr: 'Kıyma Sote', en: 'Minced Meat Saute', c: 530 },
+    veg: { tr: 'Fırın Soslu Brokoli', en: 'Baked Broccoli with Sauce', c: 90 },
+    side: { tr: 'Mısırlı Pirinç Pilavı', en: 'Rice Pilaf with Corn', c: 310 },
+    extra: { tr: 'Haydari', en: 'Haydari (Yogurt Dip)', c: 150 }
+  },
+  {
+    date: '2026-11-10',
+    dayTr: 'Salı', dayEn: 'Tuesday',
+    soup: { tr: 'Ezogelin Çorba', en: 'Ezogelin Soup', c: 90 },
+    main: { tr: 'Etli Kuru Fasülye', en: 'White Bean Stew with Meat', c: 292 },
+    veg: { tr: 'Şakşuka', en: 'Shakshuka', c: 385 },
+    side: { tr: 'Pirinç Pilavı', en: 'Rice Pilaf', c: 300 },
+    extra: { tr: 'Ekler Pasta', en: 'Eclair', c: 239 }
+  },
+  {
+    date: '2026-11-11',
+    dayTr: 'Çarşamba', dayEn: 'Wednesday',
+    soup: { tr: 'Köylü Çorba', en: 'Village Soup', c: 120 },
+    main: { tr: 'Fırın Tavuk Pirzola', en: 'Baked Chicken Cutlet', c: 250 },
+    veg: { tr: 'Pırasa Yemeği', en: 'Leek Dish', c: 182 },
+    side: { tr: 'Erişteli Bulgur Pilavı', en: 'Bulgur Pilaf with Noodles', c: 285 },
+    extra: { tr: 'Salata Bar', en: 'Salad Bar', c: 90 }
+  },
+  {
+    date: '2026-11-12',
+    dayTr: 'Perşembe', dayEn: 'Thursday',
+    soup: { tr: 'Domates Çorba', en: 'Tomato Soup', c: 63 },
+    main: { tr: 'Hamburger Köfte + Fırın Patates', en: 'Hamburger Patty & Baked Potatoes', c: 600 },
+    veg: { tr: 'Kabak Sandal', en: 'Zucchini Boats', c: 160 },
+    side: { tr: 'Napoliten Makarna', en: 'Neapolitan Pasta', c: 290 },
+    extra: { tr: 'Karışık İçecek', en: 'Mixed Beverage', c: 104 }
+  },
+  {
+    date: '2026-11-13',
+    dayTr: 'Cuma', dayEn: 'Friday',
+    soup: { tr: 'Yayla Çorba', en: 'Yayla (Yogurt) Soup', c: 100 },
+    main: { tr: 'Tas Kebabı', en: 'Bowl Kebab (Tas Kebab)', c: 377 },
+    veg: { tr: 'Fırın Karnabahar', en: 'Baked Cauliflower', c: 245 },
+    side: { tr: 'Kalem Börek', en: 'Cigar Pastry (Kalem Börek)', c: 410 },
+    extra: { tr: 'Meyve', en: 'Fruit', c: 55 }
+  },
+
+  // 3. Hafta
+  {
+    date: '2026-11-16',
+    dayTr: 'Pazartesi', dayEn: 'Monday',
+    soup: { tr: 'Zerdeçallı Mercimek Çorba', en: 'Turmeric Lentil Soup', c: 108 },
+    main: { tr: 'Etli Mantı + Yoğurt', en: 'Manti (Turkish Dumplings) with Meat & Yogurt', c: 425 },
+    veg: { tr: 'Sebze Mix', en: 'Mixed Vegetables', c: 180 },
+    side: { tr: 'Zeytinyağlı Barbunya Pilaki', en: 'Pinto Beans in Olive Oil (Barbunya Pilaki)', c: 580 },
+    extra: { tr: 'Rulo Pasta', en: 'Swiss Roll Cake', c: 300 }
+  },
+  {
+    date: '2026-11-17',
+    dayTr: 'Salı', dayEn: 'Tuesday',
+    soup: { tr: 'Köylü Çorba', en: 'Village Soup', c: 120 },
+    main: { tr: 'Hasanpaşa Köfte', en: 'Hasanpasa Meatballs', c: 367 },
+    veg: { tr: 'Bezelye Yemeği', en: 'Peas Dish', c: 260 },
+    side: { tr: 'Spagetti', en: 'Spaghetti', c: 300 },
+    extra: { tr: 'Meyve', en: 'Fruit', c: 55 }
+  },
+  {
+    date: '2026-11-18',
+    dayTr: 'Çarşamba', dayEn: 'Wednesday',
+    soup: { tr: 'Yoğurt Çorba', en: 'Yogurt Soup', c: 100 },
+    main: { tr: 'Etli Nohut', en: 'Chickpea Stew with Meat', c: 427 },
+    veg: { tr: 'Şakşuka', en: 'Shakshuka', c: 385 },
+    side: { tr: 'Şehriyeli Pirinç Pilavı', en: 'Rice Pilaf with Orzo', c: 300 },
+    extra: { tr: 'Profiterol', en: 'Profiterole', c: 238 }
+  },
+  {
+    date: '2026-11-19',
+    dayTr: 'Perşembe', dayEn: 'Thursday',
+    soup: { tr: 'Ezogelin Çorba', en: 'Ezogelin Soup', c: 90 },
+    main: { tr: 'Piliç Topkapı', en: 'Chicken Topkapi', c: 368 },
+    veg: { tr: 'Ispanak Yemeği', en: 'Spinach Dish', c: 190 },
+    side: { tr: 'Peynirli / Patatesli Börek', en: 'Cheese / Potato Pastry (Börek)', c: 430 },
+    extra: { tr: 'Karışık İçecek', en: 'Mixed Beverage', c: 104 }
+  },
+  {
+    date: '2026-11-20',
+    dayTr: 'Cuma', dayEn: 'Friday',
+    soup: { tr: 'Tarhana Çorba', en: 'Tarhana Soup', c: 90 },
+    main: { tr: 'Bahçıvan Kebabı', en: 'Gardener\'s Kebab', c: 355 },
+    veg: { tr: 'Karnabahar Kızartma', en: 'Fried Cauliflower', c: 300 },
+    side: { tr: 'Bulgur Pilavı', en: 'Bulgur Pilaf', c: 300 },
+    extra: { tr: 'Salata Bar', en: 'Salad Bar', c: 90 }
+  },
+
+  // 4. Hafta
+  {
+    date: '2026-11-23',
+    dayTr: 'Pazartesi', dayEn: 'Monday',
+    soup: { tr: 'Arapaşı Çorba', en: 'Arabasi Soup', c: 144 },
+    main: { tr: 'Şehriyeli Güveç', en: 'Casserole with Vermicelli', c: 502 },
+    veg: { tr: 'Beşamel Soslu Brokoli', en: 'Broccoli with Bechamel Sauce', c: 280 },
+    side: { tr: 'Kalem Börek', en: 'Cigar Pastry (Kalem Börek)', c: 410 },
+    extra: { tr: 'Pembe Sultan', en: 'Pembe Sultan (Beetroot Yogurt Dip)', c: 153 }
+  },
+  {
+    date: '2026-11-24',
+    dayTr: 'Salı', dayEn: 'Tuesday',
+    soup: { tr: 'Ezogelin Çorba', en: 'Ezogelin Soup', c: 90 },
+    main: { tr: 'Patates Oturtma', en: 'Potato Oturtma', c: 450 },
+    veg: { tr: 'Kabak Kalye', en: 'Zucchini Stew', c: 160 },
+    side: { tr: 'Penne Makarna', en: 'Penne Pasta', c: 300 },
+    extra: { tr: 'Triliçe', en: 'Tres Leches Cake', c: 195 }
+  },
+  {
+    date: '2026-11-25',
+    dayTr: 'Çarşamba', dayEn: 'Wednesday',
+    soup: { tr: 'Şehriye Çorba', en: 'Vermicelli Soup', c: 80 },
+    main: { tr: 'Ekşili Köfte', en: 'Sour Meatballs', c: 327 },
+    veg: { tr: 'Mercimek Köfte', en: 'Lentil Meatballs (Mercimek Köftesi)', c: 210 },
+    side: { tr: 'Nohutlu Pirinç Pilavı', en: 'Rice Pilaf with Chickpeas', c: 415 },
+    extra: { tr: 'Salata Bar', en: 'Salad Bar', c: 90 }
+  },
+  {
+    date: '2026-11-26',
+    dayTr: 'Perşembe', dayEn: 'Thursday',
+    soup: { tr: 'Mercimek Çorba', en: 'Lentil Soup', c: 108 },
+    main: { tr: 'Tavuk Tantuni + Söğüş', en: 'Chicken Tantuni & Cold Cuts', c: 240 },
+    veg: { tr: 'Yeşil Mercimek', en: 'Green Lentil Stew', c: 80 },
+    side: { tr: 'Şehriyeli Pirinç Pilavı', en: 'Rice Pilaf with Orzo', c: 300 },
+    extra: { tr: 'Meyve', en: 'Fruit', c: 55 }
+  },
+  {
+    date: '2026-11-27',
+    dayTr: 'Cuma', dayEn: 'Friday',
+    soup: { tr: 'Kesme Çorba', en: 'Kesme Soup', c: 96 },
+    main: { tr: 'Cordon Bleu + Garnitür', en: 'Cordon Bleu with Garnish', c: 504 },
+    veg: { tr: 'Şakşuka', en: 'Shakshuka', c: 385 },
+    side: { tr: 'Meyhane Pilavı', en: 'Bulgur Pilaf with Vegetables', c: 300 },
+    extra: { tr: 'Karışık İçecek', en: 'Mixed Beverage', c: 104 }
+  },
+
+  // 5. Hafta
+  {
+    date: '2026-11-30',
+    dayTr: 'Pazartesi', dayEn: 'Monday',
+    soup: { tr: 'Süzme Mercimek Çorba', en: 'Strained Lentil Soup', c: 108 },
+    main: { tr: 'Çiftlik Kebabı', en: 'Farm Kebab', c: 355 },
+    veg: { tr: 'Fırın Sebze Sote', en: 'Oven Baked Sauteed Vegetables', c: 180 },
+    side: { tr: 'Pirinç Pilavı', en: 'Rice Pilaf', c: 300 },
+    extra: { tr: 'Kalburabastı', en: 'Kalburabasti Dessert', c: 300 }
   }
 ];
 
