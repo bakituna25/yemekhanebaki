@@ -80,6 +80,12 @@ if (command === 'gruplar') {
   }
   setTimeout(() => process.exit(0), 1000);
 } else if (command === 'gonder') {
+  // Zamanlanmış görevde internet geç gelirse bekler; 10 dakikada bitmezse vazgeçer.
+  setTimeout(() => {
+    console.error('10 dakikada gönderilemedi (internet/WhatsApp bağlantısı yok), vazgeçildi.');
+    process.exit(1);
+  }, 10 * 60 * 1000).unref();
+  console.log(`--- ${new Date().toLocaleString('tr-TR', { timeZone: 'Europe/Istanbul' })} ---`);
   await sendWeekly();
   setTimeout(() => process.exit(0), 5000); // mesajın iletilmesi için kısa bekleme
 } else if (command === 'baslat') {
