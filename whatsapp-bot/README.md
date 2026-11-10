@@ -17,8 +17,10 @@ Güncel menü: https://…
 
 - Hafta içi çalıştırılırsa o haftanın menüsünü, hafta sonu çalıştırılırsa gelecek haftanınkini gönderir.
 - Sitede o hafta için menü yoksa mesaj göndermez.
-- Önizleme (bir şey göndermez): `npm run onizle` → `whatsapp-bot/onizleme.png` dosyasına bak.
-  Belirli bir tarih için: `node --env-file=.env preview.mjs 2026-11-28`
+- Üç tasarım var, `.env` içindeki `TASARIM` ile seçilir: `acik` (sitenin açık teması), `koyu` (sitenin koyu teması),
+  `renkli` (her güne ayrı yumuşak renk).
+- Önizleme (bir şey göndermez): `npm run onizle` → `onizleme-<tasarım>.png`. Üçünü birden görmek için
+  `npm run onizle -- hepsi`, belirli bir tarih için `npm run onizle -- renkli 2026-11-24`
 
 İki yöntem var; birini seç.
 
@@ -47,7 +49,7 @@ Arka planda sürekli çalışan bir şey yoktur: macOS her pazartesi 09:30'da bo
    - Projeyi ana klasöre (`~`) kuruyoruz; Belgeler/Masaüstü klasörlerine erişimi macOS zamanlanmış görevlere kısıtlıyor.
    - `npm install` botun kullandığı tarayıcıyı (Chromium) da indirir, birkaç dakika sürebilir.
 
-3. Görüntüyü kontrol et: `npm run onizle`, sonra `open onizleme.png`
+3. Görüntüyü kontrol et: `npm run onizle -- hepsi`, sonra `open onizleme-*.png`
 4. WhatsApp'ı bağla ve grubu bul: `npm run gruplar`
    - Terminalde çıkan QR kodu telefondan **WhatsApp > Ayarlar > Bağlı cihazlar > Cihaz bağla** ile okut.
    - Grupların listelenir. Menünün gideceği grubun `...@g.us` ile biten kimliğini kopyala.

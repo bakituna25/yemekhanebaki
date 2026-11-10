@@ -1,13 +1,23 @@
-// Göndermeden önizleme: görüntüyü onizleme.png olarak kaydeder, açıklamayı ekrana basar.
-//   node preview.mjs [YYYY-MM-DD]   (verilen tarihte çalışmış gibi davranır)
+// Göndermeden önizleme: görüntüyü onizleme-<tasarım>.png olarak kaydeder, açıklamayı ekrana basar.
+//   node preview.mjs                      -> .env'deki TASARIM (varsayılan: acik)
+//   node preview.mjs hepsi                -> üç tasarımın hepsi
+//   node preview.mjs renkli 2026-11-24    -> belirli tasarım ve tarih
 import { writeFile } from 'node:fs/promises';
-import { weeklyMenu } from './weekly.mjs';
+import { TASARIMLAR, weeklyMenu } from './weekly.mjs';
 
-const now = process.argv[2] ? new Date(`${process.argv[2]}T09:00:00+03:00`) : new Date();
-const result = await weeklyMenu({ now });
-if (!result) {
-  console.log('Bu hafta için sitede menü yok.');
-} else {
-  await writeFile(new URL('./onizleme.png', import.meta.url), result.image);
-  console.log(`Günler: ${result.days.join(', ')}\n\n${result.caption}\n\nGörüntü: whatsapp-bot/onizleme.png`);
+const args = process.argv.slice(2);
+const dateArg = args.find((a) => /^\d{4}-\d{2}-\d{2}$/.test(a));
+const choice = args.find((a) => a !== dateArg) || process.env.TASARIM || 'acik';
+const now = dateArg ? new Date(`${dateArg}T09:00:00+03:00`) : new Date();
+
+for (const tasarim of choice === 'hepsi' ? TASARIMLAR : [choice]) {
+  const result = await weeklyMenu({ now, tasarim });
+  if (!result) {
+    console.log('Bu hafta için sitede menü yok.');
+    break;
+  }
+  const file = `onizleme-${tasarim}.png`;
+  await writeFile(new URL(`./${file}`, import.meta.url), result.image);
+  console.log(`${tasarim}: whatsapp-bot/${file}`);
+  if (tasarim === TASARIMLAR.at(-1) || choice !== 'hepsi') console.log(`\nAçıklama:\n${result.caption}`);
 }
