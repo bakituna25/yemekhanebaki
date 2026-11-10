@@ -35,7 +35,7 @@ npm install          # tarayıcıyı (Chromium) da indirir
 cp .env.example .env
 ```
 
-1. `.env` içine `SITE_URL=` olarak sitenin adresini yaz. `npm run onizle` ile görüntünün doğru çıktığını kontrol et.
+1. `.env` içinde `SITE_URL` zaten https://yemeklist.vercel.app olarak ayarlı. `npm run onizle` ile görüntünün doğru çıktığını kontrol et.
 2. `npm run gruplar` → terminalde çıkan QR'ı telefondan **WhatsApp > Bağlı cihazlar > Cihaz bağla** ile okut.
    Grupların listelenir. Menünün gideceği grubun `...@g.us` ile biten kimliğini `.env` içindeki `GROUP_ID=` satırına yaz.
 3. Test: `npm run gonder` → haftanın menüsü hemen gruba gider.
@@ -61,7 +61,7 @@ her pazartesi 09:30'da otomatik çalışır.
    `npm run greenapi -- gruplar` çalıştır (veya Green API panelindeki `getContacts` metodunu kullan).
 3. GitHub'da repo → **Settings → Secrets and variables → Actions**:
    - Secrets: `GREEN_API_INSTANCE_ID`, `GREEN_API_TOKEN`, `WHATSAPP_GROUP_ID`
-   - Variables: `SITE_URL` (sitenin adresi), `GREEN_API_URL` (apiUrl), `GREEN_API_MEDIA_URL` (mediaUrl)
+   - Variables: (isteğe bağlı) `SITE_URL` — boşsa https://yemeklist.vercel.app kullanılır, `GREEN_API_URL` (apiUrl), `GREEN_API_MEDIA_URL` (mediaUrl)
 4. **Actions → WhatsApp haftalık menü → Run workflow** ile hemen test et.
 
 GitHub zamanlanmış görevleri yalnızca varsayılan dalda (`main`) çalıştırır; bu dosyaların `main`'de olması gerekir.
