@@ -59,6 +59,41 @@ export async function weeklyMenu({ url = process.env.SITE_URL, now = new Date() 
     const cards = await grid.locator('h3').allTextContents();
     if (cards.length === 0 || cards.includes('Veri Bulunamadı')) return null;
 
+    // Her kartta ana yemeğe tıklayıp sitenin gösterdiği vejetaryen seçeneği oku, sonra geri al.
+    const vegItems = [];
+    for (const card of await grid.locator(':scope > div').all()) {
+      const toggle = card.locator('.cursor-pointer');
+      await toggle.click();
+      vegItems.push({
+        day: await card.locator('h3').textContent(),
+        name: await toggle.locator('span.block').textContent(),
+        cal: await toggle.locator('.text-right span').first().textContent(),
+      });
+      await toggle.click();
+    }
+    await page.mouse.move(0, 0); // son tıklanan kartta hover gölgesi kalmasın
+
+    // Boş kalan yere, bir günün kartını kopyalayarak "Vejetaryen" kutusu ekle (aynı görünüm).
+    await grid.evaluate((el, items) => {
+      const card = el.firstElementChild.cloneNode(true);
+      card.querySelector('h3').textContent = 'Vejetaryen';
+      card.querySelector('h3 + p').textContent = 'Haftanın vejetaryen seçenekleri';
+      const list = card.querySelector('.space-y-1');
+      const template = list.querySelector(':scope > div:not(.cursor-pointer)');
+      list.replaceChildren(...items.map(({ day, name, cal }) => {
+        const row = template.cloneNode(true);
+        row.querySelector('span.uppercase').textContent = day;
+        const nameEl = row.querySelector('span.block');
+        nameEl.textContent = name;
+        nameEl.classList.replace('text-gray-800', 'text-green-600');
+        row.querySelector('.text-right span').textContent = cal;
+        return row;
+      }));
+      card.querySelector('.mt-6.pt-4')?.remove(); // toplam kalori satırı bu kutuda anlamsız
+      if (el.children.length % 2 === 0) card.style.gridColumn = '1 / -1'; // boşluk yoksa tam genişlik
+      el.append(card);
+    }, vegItems);
+
     // Görüntünün başına başlık ekle, kenarlara boşluk ver.
     const label = weekLabel(monday);
     await grid.evaluate((el, label) => {

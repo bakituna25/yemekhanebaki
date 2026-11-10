@@ -1,6 +1,7 @@
 # Yemekhane WhatsApp Botu
 
-Haftada bir kez, sitedeki **Haftalık** görünümün menü kartlarını görüntü olarak alır ve seçtiğin WhatsApp grubuna
+Haftada bir kez, sitedeki **Haftalık** görünümün menü kartlarını (son boşluğa haftanın vejetaryen yemeklerini
+gösteren bir kutu eklenerek) görüntü olarak alır ve seçtiğin WhatsApp grubuna
 resim olarak gönderir. Bot, site adresini (`SITE_URL`) tarayıcıda açıp kartların görüntüsünü alır. Bu yüzden siteyi
 güncellemen yeterli. Kartlar her zaman açık temada ve Türkçe alınır.
 
