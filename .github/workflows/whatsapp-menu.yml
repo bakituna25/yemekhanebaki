@@ -1,11 +1,11 @@
-# Her hafta içi günü, günün menüsünü Green API üzerinden WhatsApp grubuna gönderir.
+# Her pazartesi, haftanın menü kartlarını siteden görüntü olarak alıp Green API ile WhatsApp grubuna gönderir.
 # Gerekli repo secret'ları: GREEN_API_INSTANCE_ID, GREEN_API_TOKEN, WHATSAPP_GROUP_ID
-# İsteğe bağlı repo variable'ları: SITE_URL, GREEN_API_URL
-name: WhatsApp günlük menü
+# Repo variable'ları: SITE_URL (sitenin adresi), GREEN_API_URL ve GREEN_API_MEDIA_URL (Green API panelinden)
+name: WhatsApp haftalık menü
 
 on:
   schedule:
-    - cron: '30 7 * * 1-5' # 07:30 UTC = 10:30 Türkiye saati (GitHub birkaç dakika gecikebilir)
+    - cron: '30 6 * * 1' # 06:30 UTC = pazartesi 09:30 Türkiye saati (GitHub birkaç dakika gecikebilir)
   workflow_dispatch: {} # Actions sekmesinden elle "Run workflow" ile test için
 
 jobs:
@@ -18,11 +18,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Menüyü gönder
+      - name: Bağımlılıkları kur
+        working-directory: whatsapp-bot
+        run: |
+          npm ci --ignore-scripts
+          npx playwright install --with-deps chromium
+      - name: Haftalık menüyü gönder
+        working-directory: whatsapp-bot
         env:
           GREEN_API_INSTANCE_ID: ${{ secrets.GREEN_API_INSTANCE_ID }}
           GREEN_API_TOKEN: ${{ secrets.GREEN_API_TOKEN }}
           GROUP_ID: ${{ secrets.WHATSAPP_GROUP_ID }}
-          GREEN_API_URL: ${{ vars.GREEN_API_URL || 'https://api.green-api.com' }}
           SITE_URL: ${{ vars.SITE_URL }}
-        run: node whatsapp-bot/greenapi.mjs
+          GREEN_API_URL: ${{ vars.GREEN_API_URL || 'https://api.green-api.com' }}
+          GREEN_API_MEDIA_URL: ${{ vars.GREEN_API_MEDIA_URL }}
+        run: node greenapi.mjs

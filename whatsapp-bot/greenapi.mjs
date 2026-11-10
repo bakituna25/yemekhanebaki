@@ -1,9 +1,10 @@
 // Sunucu/bilgisayar açık tutmadan, GitHub Actions'tan Green API (green-api.com) ile gönderim.
-// Gerekli ortam değişkenleri: GREEN_API_INSTANCE_ID, GREEN_API_TOKEN, GROUP_ID
-import { messageFor, todayInIstanbul } from './menu.mjs';
+// Gerekli ortam değişkenleri: GREEN_API_INSTANCE_ID, GREEN_API_TOKEN, GROUP_ID, SITE_URL
+import { weeklyMenu } from './weekly.mjs';
 
 const {
   GREEN_API_URL = 'https://api.green-api.com',
+  GREEN_API_MEDIA_URL,
   GREEN_API_INSTANCE_ID: id,
   GREEN_API_TOKEN: token,
   GROUP_ID,
@@ -15,7 +16,7 @@ if (!id || !token || (!listGroups && !GROUP_ID)) {
   process.exit(1);
 }
 
-const api = (method) => `${GREEN_API_URL}/waInstance${id}/${method}/${token}`;
+const api = (method, base = GREEN_API_URL) => `${base}/waInstance${id}/${method}/${token}`;
 
 if (listGroups) {
   const res = await fetch(api('getContacts'));
@@ -24,19 +25,18 @@ if (listGroups) {
   process.exit(0);
 }
 
-const date = todayInIstanbul();
-const text = await messageFor(date);
-if (!text) {
-  console.log(`${date}: menü yok, mesaj gönderilmedi.`);
+const menu = await weeklyMenu();
+if (!menu) {
+  console.log('Bu hafta için sitede menü yok, mesaj gönderilmedi.');
   process.exit(0);
 }
-const res = await fetch(api('sendMessage'), {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ chatId: GROUP_ID, message: text }),
-});
+const form = new FormData();
+form.append('chatId', GROUP_ID);
+form.append('caption', menu.caption);
+form.append('file', new Blob([menu.image], { type: 'image/png' }), 'haftalik-menu.png');
+const res = await fetch(api('sendFileByUpload', GREEN_API_MEDIA_URL || GREEN_API_URL), { method: 'POST', body: form });
 if (!res.ok) {
   console.error(`Gönderim başarısız (${res.status}):`, await res.text());
   process.exit(1);
 }
-console.log(`${date}: menü gruba gönderildi.`, await res.json());
+console.log(`Haftalık menü gruba gönderildi (${menu.days.join(', ')}).`, await res.json());

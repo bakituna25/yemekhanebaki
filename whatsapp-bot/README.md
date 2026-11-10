@@ -1,23 +1,23 @@
 # Yemekhane WhatsApp Botu
 
-Sitedeki menüyü (`src/App.jsx` → `RAW_MENU_ITEMS`) okur ve günün menüsünü seçtiğin WhatsApp grubuna gönderir.
-Menü eklemek için siteyi her zamanki gibi güncellemen yeterli; bot ayrıca bir veriye ihtiyaç duymaz.
+Haftada bir kez, sitedeki **Haftalık** görünümün menü kartlarını görüntü olarak alır ve seçtiğin WhatsApp grubuna
+resim olarak gönderir. Bot, site adresini (`SITE_URL`) tarayıcıda açıp kartların görüntüsünü alır. Bu yüzden siteyi
+güncellemen yeterli. Kartlar her zaman açık temada ve Türkçe alınır.
 
-Örnek mesaj:
+Resmin altındaki açıklama (emojisiz):
 
 ```
-🍽️ *Günün Menüsü* — 24.11.2026 Salı
+*AGÜ Yemekhane Haftalık Menü*
+9 - 13 Kasım 2026
+Servis saatleri: 11.00 - 14.30
 
-🥣 *Çorba:* Ezogelin Çorba _(90 kcal)_
-🍖 *Ana Yemek:* Patates Oturtma _(450 kcal)_
-🥦 *Vejetaryen:* Kabak Kalye _(160 kcal)_
-🍚 *Yan Yemek:* Penne Makarna _(300 kcal)_
-🍮 *Ekstra:* Triliçe _(195 kcal)_
-
-🔥 Toplam: ~1035 kcal
+Güncel menü: https://…
 ```
 
-Önizleme (bir şey göndermez): `npm run onizle` veya `node preview.mjs 2026-11-24`
+- Hafta içi çalıştırılırsa o haftanın menüsünü, hafta sonu çalıştırılırsa gelecek haftanınkini gönderir.
+- Sitede o hafta için menü yoksa mesaj göndermez.
+- Önizleme (bir şey göndermez): `npm run onizle` → `whatsapp-bot/onizleme.png` dosyasına bak.
+  Belirli bir tarih için: `node --env-file=.env preview.mjs 2026-11-28`
 
 İki yöntem var; birini seç.
 
@@ -30,22 +30,21 @@ Gönderim saatinde **bilgisayarın (veya Raspberry Pi / VPS) açık ve bot çal�
 
 ```bash
 cd whatsapp-bot
-npm install
+npm install          # tarayıcıyı (Chromium) da indirir
 cp .env.example .env
 ```
 
-1. `npm run gruplar` → terminalde çıkan QR'ı telefondan **WhatsApp > Bağlı cihazlar > Cihaz bağla** ile okut.
-   Grupların listelenir; menünün gideceği grubun `...@g.us` ile biten kimliğini kopyala.
-2. `.env` içinde `GROUP_ID=` satırına yapıştır. İstersen `CRON` (saat) ve `SITE_URL` değerlerini de düzenle.
-3. Test: `npm run gonder` → bugünün menüsü hemen gruba gider.
-4. Otomatik: `npm run baslat` → açık kaldığı sürece her hafta içi 10:30'da gönderir.
+1. `.env` içine `SITE_URL=` olarak sitenin adresini yaz. `npm run onizle` ile görüntünün doğru çıktığını kontrol et.
+2. `npm run gruplar` → terminalde çıkan QR'ı telefondan **WhatsApp > Bağlı cihazlar > Cihaz bağla** ile okut.
+   Grupların listelenir. Menünün gideceği grubun `...@g.us` ile biten kimliğini `.env` içindeki `GROUP_ID=` satırına yaz.
+3. Test: `npm run gonder` → haftanın menüsü hemen gruba gider.
+4. Otomatik: `npm run baslat` → açık kaldığı sürece her pazartesi 09:30'da gönderir (`.env` içindeki `CRON` ile değiştirilebilir).
    Sürekli çalışması için ör. `npx pm2 start "npm run baslat" --name yemekhane` kullanabilirsin.
 
 Notlar:
 - Oturum bilgisi `whatsapp-bot/auth/` klasöründe tutulur (git'e gitmez). Bunu kimseyle paylaşma.
-- `.env` içindeki `MENU_SOURCE_URL` sayesinde bot menüyü her gün GitHub'dan en güncel haliyle çeker; `git pull` yapman gerekmez.
-- Bu yöntem WhatsApp'ın resmi API'si değildir. Günde bir mesaj gibi düşük kullanımda sorun çıkması beklenmez, ama
-  istersen ana numaran yerine ayrı bir numara kullanabilirsin.
+- Bu yöntem WhatsApp'ın resmi API'si değildir. Haftada bir mesaj gibi düşük kullanımda sorun çıkması beklenmez,
+  ama istersen ana numaran yerine ayrı bir numara kullanabilirsin.
 
 ---
 
@@ -53,15 +52,15 @@ Notlar:
 
 [Green API](https://green-api.com) bir WhatsApp numarasını HTTP API'ye bağlayan bir servis (ücretsiz geliştirici
 planı ve ücretli planları var). Gönderim GitHub'ın sunucularında, `.github/workflows/whatsapp-menu.yml` ile
-her hafta içi 10:30'da otomatik çalışır.
+her pazartesi 09:30'da otomatik çalışır.
 
 1. green-api.com'da hesap aç, bir instance oluştur, QR'ı telefonla okutarak numaranı bağla.
-   `idInstance` ve `apiTokenInstance` değerlerini not al.
-2. Grup kimliğini bul: `whatsapp-bot/.env` içine `GREEN_API_INSTANCE_ID` ve `GREEN_API_TOKEN` yaz, sonra
+   Paneldeki `idInstance`, `apiTokenInstance`, `apiUrl` ve `mediaUrl` değerlerini not al.
+2. Grup kimliğini bul: `whatsapp-bot/.env` içine `GREEN_API_INSTANCE_ID`, `GREEN_API_TOKEN` ve `GREEN_API_URL` yaz, sonra
    `npm run greenapi -- gruplar` çalıştır (veya Green API panelindeki `getContacts` metodunu kullan).
 3. GitHub'da repo → **Settings → Secrets and variables → Actions**:
    - Secrets: `GREEN_API_INSTANCE_ID`, `GREEN_API_TOKEN`, `WHATSAPP_GROUP_ID`
-   - (İsteğe bağlı) Variables: `SITE_URL`, `GREEN_API_URL` (Green API panelinde farklı bir apiUrl görüyorsan)
-4. **Actions → WhatsApp günlük menü → Run workflow** ile hemen test et.
+   - Variables: `SITE_URL` (sitenin adresi), `GREEN_API_URL` (apiUrl), `GREEN_API_MEDIA_URL` (mediaUrl)
+4. **Actions → WhatsApp haftalık menü → Run workflow** ile hemen test et.
 
-Workflow `main` dalındaki menüyü kullanır ve o gün için menü yoksa (hafta sonu, tatil) mesaj göndermez.
+GitHub zamanlanmış görevleri yalnızca varsayılan dalda (`main`) çalıştırır; bu dosyaların `main`'de olması gerekir.

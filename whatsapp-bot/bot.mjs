@@ -1,16 +1,16 @@
 // WhatsApp Web üzerinden (Baileys) çalışan bot. Kendi numaranla QR okutarak bağlanır.
 //   npm run gruplar  -> üyesi olduğun grupları ve kimliklerini listeler
-//   npm run gonder   -> bugünün menüsünü hemen GROUP_ID grubuna gönderir
-//   npm run baslat   -> sürekli açık kalır, CRON zamanında her gün otomatik gönderir
+//   npm run gonder   -> haftanın menüsünü (siteden alınan kart görüntüsü) hemen GROUP_ID grubuna gönderir
+//   npm run baslat   -> sürekli açık kalır, CRON zamanında (varsayılan pazartesi 09:30) otomatik gönderir
 import makeWASocket, { DisconnectReason, fetchLatestBaileysVersion, useMultiFileAuthState } from 'baileys';
 import cron from 'node-cron';
 import pino from 'pino';
 import qrcode from 'qrcode-terminal';
 import { fileURLToPath } from 'node:url';
-import { messageFor, todayInIstanbul } from './menu.mjs';
+import { weeklyMenu } from './weekly.mjs';
 
 const AUTH_DIR = fileURLToPath(new URL('./auth', import.meta.url));
-const { GROUP_ID, CRON = '30 10 * * 1-5' } = process.env;
+const { GROUP_ID, CRON = '30 9 * * 1' } = process.env;
 const command = process.argv[2] || 'baslat';
 
 // Bağlantıyı kurar; koparsa (çıkış yapılmadıysa) 5 sn sonra yeniden bağlanır.
@@ -59,17 +59,16 @@ async function getSock() {
   return waitOpen();
 }
 
-async function sendToday() {
+async function sendWeekly() {
   if (!GROUP_ID) throw new Error('GROUP_ID boş. Önce "npm run gruplar" ile grup kimliğini bulup .env dosyasına yaz.');
-  const date = todayInIstanbul();
-  const text = await messageFor(date);
-  if (!text) {
-    console.log(`${date}: menü yok, mesaj gönderilmedi.`);
+  const menu = await weeklyMenu();
+  if (!menu) {
+    console.log('Bu hafta için sitede menü yok, mesaj gönderilmedi.');
     return;
   }
   const s = await getSock();
-  await s.sendMessage(GROUP_ID, { text });
-  console.log(`${date}: menü gruba gönderildi.`);
+  await s.sendMessage(GROUP_ID, { image: menu.image, caption: menu.caption });
+  console.log(`Haftalık menü gruba gönderildi (${menu.days.join(', ')}).`);
 }
 
 if (command === 'gruplar') {
@@ -81,12 +80,12 @@ if (command === 'gruplar') {
   }
   setTimeout(() => process.exit(0), 1000);
 } else if (command === 'gonder') {
-  await sendToday();
-  setTimeout(() => process.exit(0), 3000); // mesajın iletilmesi için kısa bekleme
+  await sendWeekly();
+  setTimeout(() => process.exit(0), 5000); // mesajın iletilmesi için kısa bekleme
 } else if (command === 'baslat') {
   if (!cron.validate(CRON)) throw new Error(`Geçersiz CRON: ${CRON}`);
   await getSock();
-  cron.schedule(CRON, () => sendToday().catch((e) => console.error('Gönderim hatası:', e.message)), {
+  cron.schedule(CRON, () => sendWeekly().catch((e) => console.error('Gönderim hatası:', e.message)), {
     timezone: 'Europe/Istanbul',
   });
   console.log(`⏰ Zamanlandı: "${CRON}" (Türkiye saati). Bu pencereyi açık bırak.`);

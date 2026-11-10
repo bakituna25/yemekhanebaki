@@ -7,13 +7,17 @@
     "gruplar": "node --env-file-if-exists=.env bot.mjs gruplar",
     "gonder": "node --env-file-if-exists=.env bot.mjs gonder",
     "baslat": "node --env-file-if-exists=.env bot.mjs baslat",
-    "greenapi": "node --env-file-if-exists=.env greenapi.mjs"
+    "greenapi": "node --env-file-if-exists=.env greenapi.mjs",
+    "postinstall": "playwright install chromium"
   },
-  "engines": { "node": ">=20.12" },
+  "engines": {
+    "node": ">=20.12"
+  },
   "dependencies": {
     "baileys": "7.0.0-rc14",
     "node-cron": "^4.6.0",
     "pino": "^10.4.0",
+    "playwright": "^1.63.0",
     "qrcode-terminal": "^0.12.0"
   }
 }
