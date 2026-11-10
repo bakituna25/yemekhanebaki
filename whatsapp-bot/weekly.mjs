@@ -130,17 +130,22 @@ const RENKLER = {
   Çarşamba: { accent: '#A9772B' },
   Perşembe: { accent: '#A6504F' },
   Cuma: { accent: '#2F7A72' },
-  Vejetaryen: { accent: '#4A8058' },
+  Vejetaryen: { accent: '#2F7D4C' },
 };
 const esc = (t) => String(t).replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[ch]);
+
+const LEAF = `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:9px;opacity:.9">
+  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+  <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`;
 
 function renkliHtml(days, label) {
   const row = (lbl, name, cal) => `
     <div class="row"><div class="lbl">${esc(lbl)}</div><div class="name">${esc(name)}</div>
     <div class="cal">${esc(cal)}<span>kcal</span></div></div>`;
-  const card = ({ title, sub, rows, c, total, wide }) => `
-    <section class="card" style="--a:${c.accent}${wide ? ';grid-column:1/-1' : ''}">
-      <div class="head"><div class="day">${esc(title)}</div><div class="date">${esc(sub)}</div></div>
+  const card = ({ title, sub, rows, c, total, wide, filled }) => `
+    <section class="card${filled ? ' filled' : ''}" style="--a:${c.accent}${wide ? ';grid-column:1/-1' : ''}">
+      <div class="head"><div class="day">${filled ? LEAF : ''}${esc(title)}</div><div class="date">${esc(sub)}</div></div>
       <div class="rows">${rows}</div>
       ${total ? `<div class="total"><span>Toplam kalori</span><b>${esc(total)} <small>kcal</small></b></div>` : ''}
     </section>`;
@@ -149,7 +154,7 @@ function renkliHtml(days, label) {
     rows: d.items.map((i) => row(i.label, i.name, i.cal)).join(''),
   }));
   cards.push(card({
-    title: 'Vejetaryen', sub: 'Haftanın vejetaryen seçenekleri', c: RENKLER.Vejetaryen, wide: days.length % 2 === 0,
+    title: 'Vejetaryen', sub: 'Haftanın vejetaryen seçenekleri', c: RENKLER.Vejetaryen, wide: days.length % 2 === 0, filled: true,
     rows: days.map((d) => row(d.day, d.veg.name, d.veg.cal)).join(''),
   }));
   return `<!doctype html><html lang="tr"><head><meta charset="utf-8"><style>
@@ -180,6 +185,17 @@ function renkliHtml(days, label) {
     .cal span, .total small { font-size: 10px; color: #A3A19B; margin-left: 3px; text-transform: uppercase; letter-spacing: .5px; }
     .total { display: flex; justify-content: space-between; align-items: baseline; margin-top: 8px; padding-top: 14px;
       border-top: 1px solid #EEECE7; font-size: 12px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase; color: #8A8984; }
+    .card.filled { background: linear-gradient(165deg, #2F7D4C 0%, #1E5C37 100%); border-color: #1E5C37;
+      box-shadow: 0 6px 18px rgba(30, 92, 55, .22); }
+    .card.filled::before { display: none; }
+    .filled .day { color: #fff; }
+    .filled .date { color: rgba(255,255,255,.72); }
+    .filled .head { border-bottom-color: rgba(255,255,255,.18); }
+    .filled .row { border-bottom-color: rgba(255,255,255,.13); }
+    .filled .lbl { color: rgba(214,240,222,.78); }
+    .filled .name { color: #fff; font-weight: 600; }
+    .filled .cal { color: rgba(255,255,255,.9); }
+    .filled .cal span { color: rgba(255,255,255,.6); }
     .total b { font-size: 18px; color: var(--a); letter-spacing: 0; font-variant-numeric: tabular-nums; }
   </style></head><body><div id="wrap">
     <header><div><div class="kicker">AGÜ YEMEKHANE</div><h1>Haftalık Menü</h1></div>
