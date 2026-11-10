@@ -123,67 +123,67 @@ async function siteImage(page, grid, days, label, dark) {
   return grid.locator('..').screenshot({ animations: 'disabled' });
 }
 
-// "renkli": her güne kendi rengi verilmiş, yumuşak tonlu ayrı bir tasarım (veriler yine siteden).
+// "renkli": sade, kurumsal bir tasarım; her gün yalnızca ince bir renk vurgusuyla ayrılır (veriler yine siteden).
 const RENKLER = {
-  Pazartesi: { bg: '#EAF4FE', accent: '#0284C7', soft: '#D3E9FC' },
-  Salı: { bg: '#F2EEFE', accent: '#7C3AED', soft: '#E3DAFC' },
-  Çarşamba: { bg: '#FEF6E7', accent: '#D97706', soft: '#FCE8C3' },
-  Perşembe: { bg: '#FEEEF1', accent: '#E11D48', soft: '#FBD7DF' },
-  Cuma: { bg: '#E8F7F6', accent: '#0F9488', soft: '#CDEDEA' },
-  Vejetaryen: { bg: '#ECF8EE', accent: '#16A34A', soft: '#D2EFD8' },
+  Pazartesi: { accent: '#3E6A9A' },
+  Salı: { accent: '#6E5A96' },
+  Çarşamba: { accent: '#A9772B' },
+  Perşembe: { accent: '#A6504F' },
+  Cuma: { accent: '#2F7A72' },
+  Vejetaryen: { accent: '#4A8058' },
 };
 const esc = (t) => String(t).replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[ch]);
 
 function renkliHtml(days, label) {
-  const row = (label, name, cal, c) => `
-    <div class="row"><div class="txt"><div class="lbl" style="color:${c.accent}">${esc(label)}</div>
-    <div class="name">${esc(name)}</div></div><div class="cal">${esc(cal)}<small>kcal</small></div></div>`;
-  const card = (title, sub, rows, c, footer = '', wide = false) => `
-    <div class="card" style="background:${c.bg}${wide ? ';grid-column:1/-1' : ''}">
-      <div class="top"><span class="dot" style="background:${c.accent}"></span>
-        <div><div class="day" style="color:${c.accent}">${esc(title)}</div><div class="date">${esc(sub)}</div></div></div>
-      <div class="rows">${rows}</div>${footer}</div>`;
-  const cards = days.map((d) => {
-    const c = RENKLER[d.day] ?? RENKLER.Pazartesi;
-    const footer = d.total
-      ? `<div class="total" style="background:${c.soft}"><span>Toplam</span><b style="color:${c.accent}">${esc(d.total)} kcal</b></div>` : '';
-    return card(d.day, d.date, d.items.map((i) => row(i.label, i.name, i.cal, c)).join(''), c, footer);
-  });
-  const v = RENKLER.Vejetaryen;
-  cards.push(card('Vejetaryen', 'Haftanın vejetaryen seçenekleri',
-    days.map((d) => row(d.day, d.veg.name, d.veg.cal, v)).join(''), v, '', days.length % 2 === 0));
+  const row = (lbl, name, cal) => `
+    <div class="row"><div class="lbl">${esc(lbl)}</div><div class="name">${esc(name)}</div>
+    <div class="cal">${esc(cal)}<span>kcal</span></div></div>`;
+  const card = ({ title, sub, rows, c, total, wide }) => `
+    <section class="card" style="--a:${c.accent}${wide ? ';grid-column:1/-1' : ''}">
+      <div class="head"><div class="day">${esc(title)}</div><div class="date">${esc(sub)}</div></div>
+      <div class="rows">${rows}</div>
+      ${total ? `<div class="total"><span>Toplam kalori</span><b>${esc(total)} <small>kcal</small></b></div>` : ''}
+    </section>`;
+  const cards = days.map((d) => card({
+    title: d.day, sub: d.date, c: RENKLER[d.day] ?? RENKLER.Pazartesi, total: d.total,
+    rows: d.items.map((i) => row(i.label, i.name, i.cal)).join(''),
+  }));
+  cards.push(card({
+    title: 'Vejetaryen', sub: 'Haftanın vejetaryen seçenekleri', c: RENKLER.Vejetaryen, wide: days.length % 2 === 0,
+    rows: days.map((d) => row(d.day, d.veg.name, d.veg.cal)).join(''),
+  }));
   return `<!doctype html><html lang="tr"><head><meta charset="utf-8"><style>
     * { box-sizing: border-box; margin: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, system-ui, sans-serif;
-      background: #FBFAF8; color: #1F2937; width: 1000px; }
-    #wrap { padding: 32px; }
-    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
-    h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; }
-    .week { font-size: 17px; color: #6B7280; font-weight: 600; margin-top: 4px; }
-    .brand { text-align: right; }
-    .pill { display: inline-block; background: #C41230; color: #fff; font-weight: 800; font-size: 16px;
-      padding: 8px 16px; border-radius: 999px; }
-    .hours { font-size: 14px; color: #6B7280; font-weight: 600; margin-top: 8px; }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; grid-auto-rows: 1fr; }
-    .card { border-radius: 26px; padding: 26px; display: flex; flex-direction: column; }
-    .top { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
-    .dot { width: 12px; height: 44px; border-radius: 6px; }
-    .day { font-size: 26px; font-weight: 800; letter-spacing: -0.3px; }
-    .date { font-size: 14px; color: #6B7280; font-weight: 500; margin-top: 2px; }
-    .rows { display: flex; flex-direction: column; gap: 9px; flex: 1; }
-    .row { background: rgba(255,255,255,.78); border-radius: 16px; padding: 11px 16px;
-      display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .txt { min-width: 0; }
-    .lbl { font-size: 11px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; }
-    .name { font-size: 17px; font-weight: 600; margin-top: 2px; }
-    .cal { font-size: 14px; font-weight: 700; color: #4B5563; white-space: nowrap; }
-    .cal small { font-size: 10px; color: #9CA3AF; font-weight: 600; margin-left: 3px; text-transform: uppercase; }
-    .total { margin-top: 14px; border-radius: 14px; padding: 11px 16px; display: flex; justify-content: space-between;
-      font-size: 14px; font-weight: 600; color: #4B5563; }
-    .total b { font-size: 16px; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Inter, Roboto, system-ui, sans-serif;
+      background: #F3F2EF; color: #1C1C1E; width: 1000px; -webkit-font-smoothing: antialiased; }
+    #wrap { padding: 40px 36px 36px; }
+    header { display: flex; justify-content: space-between; align-items: flex-end;
+      padding-bottom: 22px; margin-bottom: 26px; border-bottom: 1px solid #DAD8D2; }
+    .kicker { font-size: 12px; font-weight: 700; letter-spacing: 2.2px; color: #C41230; }
+    h1 { font-size: 34px; font-weight: 700; letter-spacing: -0.6px; margin-top: 6px; }
+    .meta { text-align: right; font-size: 14px; color: #6B6A66; line-height: 1.6; }
+    .meta b { display: block; font-size: 17px; color: #1C1C1E; font-weight: 600; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; grid-auto-rows: 1fr; }
+    .card { position: relative; overflow: hidden; background: #fff; border: 1px solid #E4E2DC; border-radius: 14px;
+      padding: 26px 24px 20px; display: flex; flex-direction: column; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+    .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--a); }
+    .head { padding-bottom: 14px; border-bottom: 1px solid #EEECE7; }
+    .day { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+    .date { font-size: 13px; color: #8A8984; margin-top: 3px; }
+    .rows { flex: 1; }
+    .row { display: grid; grid-template-columns: 96px 1fr auto; align-items: baseline; gap: 12px;
+      padding: 13px 0; border-bottom: 1px solid #F1EFEA; }
+    .row:last-child { border-bottom: 0; }
+    .lbl { font-size: 10.5px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #9A9893; }
+    .name { font-size: 16px; font-weight: 500; color: #1C1C1E; }
+    .cal { font-size: 14px; font-weight: 500; color: #57564F; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .cal span, .total small { font-size: 10px; color: #A3A19B; margin-left: 3px; text-transform: uppercase; letter-spacing: .5px; }
+    .total { display: flex; justify-content: space-between; align-items: baseline; margin-top: 8px; padding-top: 14px;
+      border-top: 1px solid #EEECE7; font-size: 12px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase; color: #8A8984; }
+    .total b { font-size: 18px; color: var(--a); letter-spacing: 0; font-variant-numeric: tabular-nums; }
   </style></head><body><div id="wrap">
-    <header><div><h1>Haftalık Menü</h1><div class="week">${esc(label)}</div></div>
-      <div class="brand"><span class="pill">AGÜ Yemekhane</span><div class="hours">Servis: 11.00 - 14.30</div></div></header>
+    <header><div><div class="kicker">AGÜ YEMEKHANE</div><h1>Haftalık Menü</h1></div>
+      <div class="meta"><b>${esc(label)}</b>Servis saatleri 11.00 – 14.30</div></header>
     <div class="grid">${cards.join('')}</div></div></body></html>`;
 }
 

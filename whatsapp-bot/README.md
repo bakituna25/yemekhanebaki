@@ -18,7 +18,7 @@ Güncel menü: https://…
 - Hafta içi çalıştırılırsa o haftanın menüsünü, hafta sonu çalıştırılırsa gelecek haftanınkini gönderir.
 - Sitede o hafta için menü yoksa mesaj göndermez.
 - Üç tasarım var, `.env` içindeki `TASARIM` ile seçilir: `acik` (sitenin açık teması), `koyu` (sitenin koyu teması),
-  `renkli` (her güne ayrı yumuşak renk).
+  `renkli` (sade kurumsal tasarım, her gün ince bir renk vurgusuyla).
 - Önizleme (bir şey göndermez): `npm run onizle` → `onizleme-<tasarım>.png`. Üçünü birden görmek için
   `npm run onizle -- hepsi`, belirli bir tarih için `npm run onizle -- renkli 2026-11-24`
 
