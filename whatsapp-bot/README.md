@@ -24,54 +24,48 @@ Güncel menü: https://…
 
 ---
 
-## Yöntem 1: Kendi numaranla, ücretsiz (Windows bilgisayar)
+## Yöntem 1: Kendi numaranla, ücretsiz (Mac)
 
 Bot, WhatsApp Web gibi senin numarana "bağlı cihaz" olarak bağlanır ve mesajı senin adına atar.
-Arka planda sürekli çalışan bir şey yoktur: Windows Görev Zamanlayıcısı her pazartesi 09:30'da botu açar,
-bot menüyü gönderir ve kapanır. Bilgisayar o saatte kapalıysa, açıldığında ilk fırsatta gönderir.
+Arka planda sürekli çalışan bir şey yoktur: macOS her pazartesi 09:30'da botu açar, bot menüyü gönderir ve kapanır.
 
 ### Bir kerelik kurulum
 
-1. **Node.js** kur: https://nodejs.org → "LTS" sürümünü indirip varsayılan ayarlarla kur.
-2. **Git** kur (yoksa): https://git-scm.com/download/win
-3. Başlat menüsünden **PowerShell** aç ve sırayla çalıştır:
+1. **Node.js** kur: https://nodejs.org → "LTS" sürümünü (macOS Installer) indirip kur.
+2. **Terminal**'i aç (Spotlight: ⌘ + Boşluk → "Terminal") ve sırayla çalıştır:
 
-   ```powershell
-   cd $HOME\Documents
+   ```bash
+   cd ~
    git clone -b claude/determined-edison-sgw3uj https://github.com/bakituna25/yemekhanebaki.git
-   cd yemekhanebaki\whatsapp-bot
+   cd yemekhanebaki/whatsapp-bot
    npm install
-   copy .env.example .env
+   cp .env.example .env
    ```
 
-   `npm install` botun kullandığı tarayıcıyı (Chromium) da indirir, birkaç dakika sürebilir.
+   - `git` ilk kez kullanılıyorsa macOS "komut satırı geliştirici araçlarını yükle" penceresi açar: **Yükle** de,
+     bitince `git clone` satırını tekrar çalıştır.
+   - Projeyi ana klasöre (`~`) kuruyoruz; Belgeler/Masaüstü klasörlerine erişimi macOS zamanlanmış görevlere kısıtlıyor.
+   - `npm install` botun kullandığı tarayıcıyı (Chromium) da indirir, birkaç dakika sürebilir.
 
-4. Görüntüyü kontrol et: `npm run onizle` → klasördeki `onizleme.png` dosyasını aç.
-5. WhatsApp'ı bağla ve grubu bul: `npm run gruplar`
-   - Ekranda çıkan QR kodu telefondan **WhatsApp > Ayarlar > Bağlı cihazlar > Cihaz bağla** ile okut.
+3. Görüntüyü kontrol et: `npm run onizle`, sonra `open onizleme.png`
+4. WhatsApp'ı bağla ve grubu bul: `npm run gruplar`
+   - Terminalde çıkan QR kodu telefondan **WhatsApp > Ayarlar > Bağlı cihazlar > Cihaz bağla** ile okut.
    - Grupların listelenir. Menünün gideceği grubun `...@g.us` ile biten kimliğini kopyala.
-6. `notepad .env` ile dosyayı aç, `GROUP_ID=` satırının sonuna kopyaladığın kimliği yapıştır, kaydet.
-7. Deneme gönderimi: `npm run gonder` → haftanın menüsü hemen gruba gider.
-8. Her pazartesi otomatik gönderim için görevi kur:
+5. `open -e .env` ile dosyayı aç, `GROUP_ID=` satırının sonuna kopyaladığın kimliği yapıştır, kaydet (⌘ + S).
+6. Deneme gönderimi: `npm run gonder` → haftanın menüsü hemen gruba gider.
+7. Her pazartesi otomatik gönderim için görevi kur: `./gorev-kur.sh`
 
-   ```powershell
-   powershell -ExecutionPolicy Bypass -File gorev-kur.ps1
-   ```
-
-Bitti. Kontrol etmek istersen: Başlat menüsü → **Görev Zamanlayıcı** → "Yemekhane WhatsApp Haftalik Menu".
-Her gönderimin kaydı `whatsapp-bot\gonder.log` dosyasına yazılır.
+Bitti. Her gönderimin kaydı `~/yemekhanebaki/whatsapp-bot/gonder.log` dosyasına yazılır (`open gonder.log`).
 
 ### Bilmen gerekenler
 
-- Gönderim saatini değiştirmek: `powershell -ExecutionPolicy Bypass -File gorev-kur.ps1 -Saat 08:45`
-- Görevi kaldırmak: `powershell -ExecutionPolicy Bypass -File gorev-kur.ps1 -Kaldir`
-- Görev, Windows'ta oturum açıkken çalışır (bilgisayarı açıp giriş yapman yeterli).
+- Mac pazartesi 09:30'da **uykudaysa** (kapak kapalı), uyandığında gönderir. **Tamamen kapalıysa** o hafta gönderilmez;
+  öyle bir haftada `npm run gonder` ile elle gönderebilirsin.
+- Gönderim saatini değiştirmek: `./gorev-kur.sh 08:45` — görevi kaldırmak: `./gorev-kur.sh kaldir`
 - Telefonda **Bağlı cihazlar** listesinde bot bir cihaz olarak görünür. Oradan çıkış yaparsan bot çalışmaz;
-  `whatsapp-bot\auth` klasörünü silip 5. adımı tekrarla.
+  `rm -rf auth` ile oturumu silip 4. adımı tekrarla.
 - `auth` klasörü WhatsApp oturumundur, kimseyle paylaşma (git'e gönderilmez).
 - Bu yöntem WhatsApp'ın resmi API'si değildir. Haftada bir mesajda sorun beklenmez.
-- Bilgisayar sürekli açıksa, görev yerine `npm run baslat` ile botu açık bırakarak da kullanabilirsin
-  (zamanı `.env` içindeki `CRON` belirler).
 
 ---
 
