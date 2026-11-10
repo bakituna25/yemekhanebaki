@@ -1,0 +1,28 @@
+# Her hafta içi günü, günün menüsünü Green API üzerinden WhatsApp grubuna gönderir.
+# Gerekli repo secret'ları: GREEN_API_INSTANCE_ID, GREEN_API_TOKEN, WHATSAPP_GROUP_ID
+# İsteğe bağlı repo variable'ları: SITE_URL, GREEN_API_URL
+name: WhatsApp günlük menü
+
+on:
+  schedule:
+    - cron: '30 7 * * 1-5' # 07:30 UTC = 10:30 Türkiye saati (GitHub birkaç dakika gecikebilir)
+  workflow_dispatch: {} # Actions sekmesinden elle "Run workflow" ile test için
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Menüyü gönder
+        env:
+          GREEN_API_INSTANCE_ID: ${{ secrets.GREEN_API_INSTANCE_ID }}
+          GREEN_API_TOKEN: ${{ secrets.GREEN_API_TOKEN }}
+          GROUP_ID: ${{ secrets.WHATSAPP_GROUP_ID }}
+          GREEN_API_URL: ${{ vars.GREEN_API_URL || 'https://api.green-api.com' }}
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: node whatsapp-bot/greenapi.mjs
