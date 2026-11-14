@@ -129,7 +129,7 @@ const RENKLER = {
   Salı: { accent: '#6E5A96' },
   Çarşamba: { accent: '#A9772B' },
   Perşembe: { accent: '#A6504F' },
-  Cuma: { accent: '#2F7A72' },
+  Cuma: { accent: '#9C4A78' },
   Vejetaryen: { accent: '#2F7D4C' },
 };
 const esc = (t) => String(t).replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[ch]);
@@ -139,22 +139,35 @@ const LEAF = `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke
   <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
   <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`;
 
-function renkliHtml(days, label) {
+const GUNLER = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma'];
+
+function renkliHtml(days, label, monday) {
   const row = (lbl, name, cal) => `
     <div class="row"><div class="lbl">${esc(lbl)}</div><div class="name">${esc(name)}</div>
     <div class="cal">${esc(cal)}<span>kcal</span></div></div>`;
-  const card = ({ title, sub, rows, c, total, wide, filled }) => `
-    <section class="card${filled ? ' filled' : ''}" style="--a:${c.accent}${wide ? ';grid-column:1/-1' : ''}">
+  const card = ({ title, sub, rows, c, total, filled, off }) => `
+    <section class="card${filled ? ' filled' : ''}${off ? ' off' : ''}" style="--a:${c.accent}">
       <div class="head"><div class="day">${filled ? LEAF : ''}${esc(title)}</div><div class="date">${esc(sub)}</div></div>
       <div class="rows">${rows}</div>
       ${total ? `<div class="total"><span>Toplam kalori</span><b>${esc(total)} <small>kcal</small></b></div>` : ''}
     </section>`;
-  const cards = days.map((d) => card({
-    title: d.day, sub: d.date, c: RENKLER[d.day] ?? RENKLER.Pazartesi, total: d.total,
-    rows: d.items.map((i) => row(i.label, i.name, i.cal)).join(''),
-  }));
+  // Hafta içi her gün için bir kart; sitede menüsü olmayan gün (tatil vb.) boş kart olarak gösterilir.
+  const cards = GUNLER.map((gun, i) => {
+    const d = days.find((x) => x.day === gun);
+    if (d) {
+      return card({
+        title: d.day, sub: d.date, c: RENKLER[d.day], total: d.total,
+        rows: d.items.map((it) => row(it.label, it.name, it.cal)).join(''),
+      });
+    }
+    const t = new Date(monday.getTime() + i * 86400000);
+    return card({
+      title: gun, sub: `${t.getUTCDate()} ${MONTHS[t.getUTCMonth()]} ${t.getUTCFullYear()}`, c: RENKLER[gun], off: true,
+      rows: '<div class="empty">Yemek servisi yok</div>',
+    });
+  });
   cards.push(card({
-    title: 'Vejetaryen', sub: 'Haftanın vejetaryen seçenekleri', c: RENKLER.Vejetaryen, wide: days.length % 2 === 0, filled: true,
+    title: 'Vejetaryen', sub: 'Haftanın vejetaryen seçenekleri', c: RENKLER.Vejetaryen, filled: true,
     rows: days.map((d) => row(d.day, d.veg.name, d.veg.cal)).join(''),
   }));
   return `<!doctype html><html lang="tr"><head><meta charset="utf-8"><style>
@@ -196,6 +209,10 @@ function renkliHtml(days, label) {
     .filled .name { color: #fff; font-weight: 600; }
     .filled .cal { color: rgba(255,255,255,.9); }
     .filled .cal span { color: rgba(255,255,255,.6); }
+    .card.off::before { opacity: .35; }
+    .off .day { color: #A3A19B; }
+    .empty { height: 100%; min-height: 160px; display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 500; color: #A3A19B; letter-spacing: .2px; }
     .total b { font-size: 18px; color: var(--a); letter-spacing: 0; font-variant-numeric: tabular-nums; }
   </style></head><body><div id="wrap">
     <header><div><div class="kicker">AGÜ YEMEKHANE</div><h1>Haftalık Menü</h1></div>
@@ -220,7 +237,7 @@ export async function weeklyMenu({ url = process.env.SITE_URL, now = new Date(),
     let image;
     if (tasarim === 'renkli') {
       const p = await browser.newPage({ viewport: { width: 1000, height: 900 }, deviceScaleFactor: 2 });
-      await p.setContent(renkliHtml(days, label));
+      await p.setContent(renkliHtml(days, label, monday));
       image = await p.locator('#wrap').screenshot();
     } else {
       image = await siteImage(page, grid, days, label, tasarim === 'koyu');

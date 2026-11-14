@@ -16,7 +16,8 @@ Güncel menü: https://…
 ```
 
 - Hafta içi çalıştırılırsa o haftanın menüsünü, hafta sonu çalıştırılırsa gelecek haftanınkini gönderir.
-- Sitede o hafta için menü yoksa mesaj göndermez.
+- Haftanın hiç menüsü yoksa mesaj göndermez. Bazı günlerin menüsü yoksa (tatil vb.) o günler `renkli` tasarımda
+  "Yemek servisi yok" yazan boş kart olarak görünür.
 - Üç tasarım var, `.env` içindeki `TASARIM` ile seçilir: `acik` (sitenin açık teması), `koyu` (sitenin koyu teması),
   `renkli` (sade kurumsal tasarım, her gün ince bir renk vurgusuyla).
 - Önizleme (bir şey göndermez): `npm run onizle` → `onizleme-<tasarım>.png`. Üçünü birden görmek için
@@ -29,7 +30,7 @@ Güncel menü: https://…
 ## Yöntem 1: Kendi numaranla, ücretsiz (Mac)
 
 Bot, WhatsApp Web gibi senin numarana "bağlı cihaz" olarak bağlanır ve mesajı senin adına atar.
-Arka planda sürekli çalışan bir şey yoktur: macOS her pazartesi 09:30'da botu açar, bot menüyü gönderir ve kapanır.
+Arka planda sürekli çalışan bir şey yoktur: macOS her pazar 21:00'de botu açar, bot gelecek haftanın menüsünü gönderir ve kapanır.
 
 ### Bir kerelik kurulum
 
@@ -61,9 +62,9 @@ Bitti. Her gönderimin kaydı `~/yemekhanebaki/whatsapp-bot/gonder.log` dosyası
 
 ### Bilmen gerekenler
 
-- Mac pazartesi 09:30'da **uykudaysa** (kapak kapalı), uyandığında gönderir. **Tamamen kapalıysa** o hafta gönderilmez;
+- Mac pazar 21:00'de **uykudaysa** (kapak kapalı), uyandığında gönderir. **Tamamen kapalıysa** o hafta gönderilmez;
   öyle bir haftada `npm run gonder` ile elle gönderebilirsin.
-- Gönderim saatini değiştirmek: `./gorev-kur.sh 08:45` — görevi kaldırmak: `./gorev-kur.sh kaldir`
+- Gönderim saatini değiştirmek: `./gorev-kur.sh 20:30` — görevi kaldırmak: `./gorev-kur.sh kaldir`
 - Telefonda **Bağlı cihazlar** listesinde bot bir cihaz olarak görünür. Oradan çıkış yaparsan bot çalışmaz;
   `rm -rf auth` ile oturumu silip 4. adımı tekrarla.
 - `auth` klasörü WhatsApp oturumundur, kimseyle paylaşma (git'e gönderilmez).
@@ -75,7 +76,7 @@ Bitti. Her gönderimin kaydı `~/yemekhanebaki/whatsapp-bot/gonder.log` dosyası
 
 [Green API](https://green-api.com) bir WhatsApp numarasını HTTP API'ye bağlayan bir servis (ücretsiz geliştirici
 planı ve ücretli planları var). Gönderim GitHub'ın sunucularında, `.github/workflows/whatsapp-menu.yml` ile
-her pazartesi 09:30'da otomatik çalışır.
+her pazar 21:00'de otomatik çalışır.
 
 1. green-api.com'da hesap aç, bir instance oluştur, QR'ı telefonla okutarak numaranı bağla.
    Paneldeki `idInstance`, `apiTokenInstance`, `apiUrl` ve `mediaUrl` değerlerini not al.

@@ -1,11 +1,11 @@
-# Her pazartesi, haftanın menü kartlarını siteden görüntü olarak alıp Green API ile WhatsApp grubuna gönderir.
+# Her pazar akşamı, gelecek haftanın menü kartlarını siteden görüntü olarak alıp Green API ile WhatsApp grubuna gönderir.
 # Gerekli repo secret'ları: GREEN_API_INSTANCE_ID, GREEN_API_TOKEN, WHATSAPP_GROUP_ID
 # İsteğe bağlı repo variable'ları: SITE_URL (varsayılan https://yemeklist.vercel.app), GREEN_API_URL ve GREEN_API_MEDIA_URL (Green API panelinden)
 name: WhatsApp haftalık menü
 
 on:
   schedule:
-    - cron: '30 6 * * 1' # 06:30 UTC = pazartesi 09:30 Türkiye saati (GitHub birkaç dakika gecikebilir)
+    - cron: '0 18 * * 0' # 18:00 UTC = pazar 21:00 Türkiye saati (GitHub birkaç dakika gecikebilir)
   workflow_dispatch: {} # Actions sekmesinden elle "Run workflow" ile test için
 
 jobs:
@@ -29,7 +29,7 @@ jobs:
           GREEN_API_INSTANCE_ID: ${{ secrets.GREEN_API_INSTANCE_ID }}
           GREEN_API_TOKEN: ${{ secrets.GREEN_API_TOKEN }}
           GROUP_ID: ${{ secrets.WHATSAPP_GROUP_ID }}
-          TASARIM: ${{ vars.TASARIM || 'acik' }}
+          TASARIM: ${{ vars.TASARIM || 'renkli' }}
           SITE_URL: ${{ vars.SITE_URL || 'https://yemeklist.vercel.app' }}
           GREEN_API_URL: ${{ vars.GREEN_API_URL || 'https://api.green-api.com' }}
           GREEN_API_MEDIA_URL: ${{ vars.GREEN_API_MEDIA_URL }}

@@ -1,9 +1,9 @@
 #!/bin/bash
-# macOS'a "her pazartesi 09:30'da haftalık menüyü gönder" görevini ekler (launchd).
+# macOS'a "her pazar 21:00'de gelecek haftanın menüsünü gönder" görevini ekler (launchd).
 # Arka planda sürekli çalışan bir şey olmaz: macOS o saatte botu açar, mesajı gönderir, bot kapanır.
 # Mac o saatte uykudaysa (kapak kapalı), uyandığında gönderir.
 #
-#   ./gorev-kur.sh            -> görevi kur (pazartesi 09:30)
+#   ./gorev-kur.sh            -> görevi kur (pazar 21:00)
 #   ./gorev-kur.sh 08:45      -> farklı saatle kur
 #   ./gorev-kur.sh kaldir     -> görevi kaldır
 set -euo pipefail
@@ -19,9 +19,9 @@ if [[ "${1:-}" == "kaldir" ]]; then
   exit 0
 fi
 
-SAAT="${1:-09:30}"
+SAAT="${1:-21:00}"
 if ! [[ "$SAAT" =~ ^([01]?[0-9]|2[0-3]):([0-5][0-9])$ ]]; then
-  echo "Saat SS:DD biçiminde olmalı, ör. 09:30"; exit 1
+  echo "Saat SS:DD biçiminde olmalı, ör. 21:00"; exit 1
 fi
 HH=$((10#${BASH_REMATCH[1]})); MM=$((10#${BASH_REMATCH[2]}))
 
@@ -53,7 +53,7 @@ cat > "$PLIST" <<PLIST
   <key>WorkingDirectory</key><string>$KLASOR</string>
   <key>StartCalendarInterval</key>
   <dict>
-    <key>Weekday</key><integer>1</integer>
+    <key>Weekday</key><integer>0</integer>
     <key>Hour</key><integer>$HH</integer>
     <key>Minute</key><integer>$MM</integer>
   </dict>
@@ -66,6 +66,6 @@ PLIST
 launchctl bootout "$ALAN" "$PLIST" 2>/dev/null || true
 launchctl bootstrap "$ALAN" "$PLIST"
 
-printf '\nTamam! Haftalık menü her pazartesi saat %02d:%02d itibarıyla gruba gönderilecek.\n' "$HH" "$MM"
+printf '\nTamam! Gelecek haftanın menüsü her pazar saat %02d:%02d itibarıyla gruba gönderilecek.\n' "$HH" "$MM"
 echo "Kayıtlar: $KLASOR/gonder.log"
 echo "Hemen denemek için: launchctl kickstart $ALAN/$ETIKET"

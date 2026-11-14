@@ -1,7 +1,7 @@
 // WhatsApp Web üzerinden (Baileys) çalışan bot. Kendi numaranla QR okutarak bağlanır.
 //   npm run gruplar  -> üyesi olduğun grupları ve kimliklerini listeler
 //   npm run gonder   -> haftanın menüsünü (siteden alınan kart görüntüsü) hemen GROUP_ID grubuna gönderir
-//   npm run baslat   -> sürekli açık kalır, CRON zamanında (varsayılan pazartesi 09:30) otomatik gönderir
+//   npm run baslat   -> sürekli açık kalır, CRON zamanında (varsayılan pazar 21:00, gelecek haftanın menüsü) otomatik gönderir
 import makeWASocket, { DisconnectReason, fetchLatestBaileysVersion, useMultiFileAuthState } from 'baileys';
 import cron from 'node-cron';
 import pino from 'pino';
@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { weeklyMenu } from './weekly.mjs';
 
 const AUTH_DIR = fileURLToPath(new URL('./auth', import.meta.url));
-const { GROUP_ID, CRON = '30 9 * * 1' } = process.env;
+const { GROUP_ID, CRON = '0 21 * * 0' } = process.env;
 const command = process.argv[2] || 'baslat';
 
 // Bağlantıyı kurar; koparsa (çıkış yapılmadıysa) 5 sn sonra yeniden bağlanır.
