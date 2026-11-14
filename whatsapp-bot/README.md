@@ -56,7 +56,7 @@ Arka planda sürekli çalışan bir şey yoktur: macOS her pazar 21:00'de botu a
    - Grupların listelenir. Menünün gideceği grubun `...@g.us` ile biten kimliğini kopyala.
 5. `open -e .env` ile dosyayı aç, `GROUP_ID=` satırının sonuna kopyaladığın kimliği yapıştır, kaydet (⌘ + S).
 6. Deneme gönderimi: `npm run gonder` → haftanın menüsü hemen gruba gider.
-7. Her pazartesi otomatik gönderim için görevi kur: `./gorev-kur.sh`
+7. Her pazar akşamı otomatik gönderim için görevi kur: `./gorev-kur.sh`
 
 Bitti. Her gönderimin kaydı `~/yemekhanebaki/whatsapp-bot/gonder.log` dosyasına yazılır (`open gonder.log`).
 
