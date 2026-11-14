@@ -8,9 +8,12 @@ import pino from 'pino';
 import qrcode from 'qrcode-terminal';
 import { randomBytes } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
-import { weeklyMenu } from './weekly.mjs';
+import { readFile, writeFile } from 'node:fs/promises';
+import { targetMonday, weeklyMenu } from './weekly.mjs';
 
 const AUTH_DIR = fileURLToPath(new URL('./auth', import.meta.url));
+// Hangi gruba hangi haftanın menüsünün gönderildiğini tutar; aynı hafta iki kez gönderilmez.
+const SENT_FILE = new URL('./son-gonderim.json', import.meta.url);
 const { GROUP_ID, CRON = '0 21 * * 0' } = process.env;
 const command = process.argv[2] || 'baslat';
 
@@ -89,8 +92,15 @@ async function getSock() {
   return waitOpen();
 }
 
-async function sendWeekly() {
+async function sendWeekly({ force = false } = {}) {
   if (!GROUP_ID) throw new Error('GROUP_ID boş. Önce "npm run gruplar" ile grup kimliğini bulup .env dosyasına yaz.');
+  const week = targetMonday().toISOString().slice(0, 10);
+  const sent = JSON.parse(await readFile(SENT_FILE, 'utf8').catch(() => '{}'));
+  if (sent[GROUP_ID] === week && !force) {
+    console.log(`${week} haftasının menüsü bu gruba zaten gönderilmiş, tekrar gönderilmedi.`);
+    console.log('Yine de göndermek için: npm run gonder -- zorla');
+    return;
+  }
   const menu = await weeklyMenu();
   if (!menu) {
     console.log('Bu hafta için sitede menü yok, mesaj gönderilmedi.');
@@ -98,6 +108,8 @@ async function sendWeekly() {
   }
   const s = await getSock();
   await s.sendMessage(GROUP_ID, { image: menu.image, caption: menu.caption });
+  sent[GROUP_ID] = week;
+  await writeFile(SENT_FILE, JSON.stringify(sent, null, 2));
   console.log(`Haftalık menü gruba gönderildi (${menu.days.join(', ')}).`);
 }
 
@@ -129,7 +141,7 @@ if (command === 'gruplar') {
     process.exit(1);
   }, 10 * 60 * 1000).unref();
   console.log(`--- ${new Date().toLocaleString('tr-TR', { timeZone: 'Europe/Istanbul' })} ---`);
-  await sendWeekly();
+  await sendWeekly({ force: process.argv[3] === 'zorla' });
   setTimeout(() => process.exit(0), 5000); // mesajın iletilmesi için kısa bekleme
 } else if (command === 'baslat') {
   if (!cron.validate(CRON)) throw new Error(`Geçersiz CRON: ${CRON}`);
