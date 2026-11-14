@@ -2,7 +2,7 @@
 //   npm run gruplar  -> üyesi olduğun grupları ve kimliklerini listeler
 //   npm run gonder   -> haftanın menüsünü (siteden alınan kart görüntüsü) hemen GROUP_ID grubuna gönderir
 //   npm run baslat   -> sürekli açık kalır, CRON zamanında (varsayılan pazar 21:00, gelecek haftanın menüsü) otomatik gönderir
-import makeWASocket, { DisconnectReason, fetchLatestBaileysVersion, useMultiFileAuthState } from 'baileys';
+import makeWASocket, { areJidsSameUser, DisconnectReason, fetchLatestBaileysVersion, useMultiFileAuthState } from 'baileys';
 import cron from 'node-cron';
 import pino from 'pino';
 import qrcode from 'qrcode-terminal';
@@ -103,10 +103,23 @@ async function sendWeekly() {
 
 if (command === 'gruplar') {
   const s = await getSock();
-  const groups = Object.values(await s.groupFetchAllParticipating());
+  const me = [s.user?.id, s.user?.lid].filter(Boolean);
+  const isMe = (p) => [p.id, p.lid, p.phoneNumber].some((j) => j && me.some((m) => areJidsSameUser(j, m)));
+  const groups = Object.values(await s.groupFetchAllParticipating())
+    .filter((g) => !g.isCommunity) // topluluğun kendisine mesaj atılamaz, gruplarına atılır
+    .sort((a, b) => (a.subject || '').localeCompare(b.subject || '', 'tr'));
+
   console.log('\nGruplar (GROUP_ID olarak soldaki kimliği kullan):');
-  for (const g of groups.sort((a, b) => a.subject.localeCompare(b.subject, 'tr'))) {
-    console.log(`  ${g.id}  →  ${g.subject}`);
+  console.log('  [DUYURU] = topluluk duyuru grubu   [YÖNETİCİ] = bu grupta yöneticisin');
+  console.log('  [SADECE YÖNETİCİ YAZAR] = yönetici değilsen bu gruba mesaj gönderilemez\n');
+  for (const g of groups) {
+    const admin = g.participants?.some((p) => p.admin && isMe(p));
+    const tags = [
+      g.isCommunityAnnounce && '[DUYURU]',
+      admin && '[YÖNETİCİ]',
+      g.announce && !admin && '[SADECE YÖNETİCİ YAZAR]',
+    ].filter(Boolean).join(' ');
+    console.log(`  ${g.id}  →  ${g.subject || '(isimsiz)'}${tags ? '  ' + tags : ''}`);
   }
   setTimeout(() => process.exit(0), 1000);
 } else if (command === 'gonder') {
